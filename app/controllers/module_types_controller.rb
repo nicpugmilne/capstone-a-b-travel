@@ -1,0 +1,2 @@
+class ModuleTypesController < ApplicationController
+end
