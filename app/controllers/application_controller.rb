@@ -3,10 +3,10 @@ class ApplicationController < ActionController::API
     rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
     rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
     
-    def hello_world
-        session[:count] = (session[:count] || 0) + 1
-        render json: { count: session[:count] }
-    end
+    # def hello_world
+    #     session[:count] = (session[:count] || 0) + 1
+    #     render json: { count: session[:count] }
+    # end
 
     private
 
