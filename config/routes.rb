@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   resources :itineraries
   resources :trips
   resources :users
-  get '/hello', to: 'application#hello_world'
+  # get '/hello', to: 'application#hello_world'
 
   get '*path',
       to: 'fallback#index',
