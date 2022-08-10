@@ -1,23 +1,12 @@
 import {
     Box,
-    Center,
-    Text,
-    Stack,
-    List,
-    ListItem,
-    ListIcon,
     Button,
     useColorModeValue,
-  } from '@chakra-ui/react';
-  import {
     Table,
     Thead,
     Tbody,
-    Tfoot,
     Tr,
     Th,
-    Td,
-    TableCaption,
     TableContainer,
   } from '@chakra-ui/react'  
 import ItineraryModuleItem from './ItineraryModuleItem';
@@ -26,33 +15,43 @@ function ItineraryModuleContainer(){
 
     const modules = [{
             id: 1,
-            module_type: 'flight',
+            module_type_id: 1,
             itinerary_id: 1,
             name: 'AirNZ 1',
-            start_datetime: '2018-25-12',
-            end_datetime: '2018-25-12',
+            start_datetime: 'Sep 12',
+            end_datetime: 'Sep 25',
             duration: 160,
             cost: '1200'
         },
         {
             id: 2,
-            module_type: 'hotel',
+            module_type_id: 2,
             itinerary_id: 1,
-            name: 'Santa Monica Proper',
-            start_datetime: '2018-25-12',
-            end_datetime: '2018-25-12',
+            name: 'Hilton',
+            start_datetime: 'Sep 12',
+            end_datetime: 'Sep 25',
             duration: null,
             cost: '250'
         },
         {
             id: 3,
-            module_type: 'car',
+            module_type_id: 3,
             itinerary_id: 1,
             name: 'Apex',
-            start_datetime: '2018-25-12',
-            end_datetime: '2018-25-12',
+            start_datetime: 'Sep 12',
+            end_datetime: 'Sep 25',
             duration: null,
             cost: '380'
+        },
+        {
+            id: 4,
+            module_type_id: 4,
+            itinerary_id: 1,
+            name: 'Hike Mt Doom',
+            start_datetime: 'Sep 12',
+            end_datetime: 'Sep 25',
+            duration: null,
+            cost: '0'
         }
     ]
 
@@ -63,11 +62,12 @@ function ItineraryModuleContainer(){
     })
 
     return (
-        <Box bg={useColorModeValue('gray.50', 'gray.900')} px={6} py={10}>
+        <Box px={2} py={2}>
             <TableContainer>
-                <Table size='sm'>
+                <Table size='sm' variant='unstyled'>
                 <Thead>
                 <Tr>
+                    <Th></Th>
                     <Th>Date</Th>
                     <Th>Name</Th>
                     <Th>Duration</Th>
@@ -80,7 +80,7 @@ function ItineraryModuleContainer(){
                 </Table>
             </TableContainer>
             <Button
-            mt={10}
+            my={8}
             w={'full'}
             bg={'green.400'}
             color={'white'}

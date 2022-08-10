@@ -1,7 +1,11 @@
+import { Box, SimpleGrid } from "@chakra-ui/react";
 import ItineraryCard from "./ItineraryCard";
 import ItineraryContainerHeader from "./ItineraryContainerHeader";
+import { useState } from "react";
 
 function ItinerariesContainer(){
+    const [isModalOpen, setModalOpen] = useState(false);
+
     const itineraries = [{
             id: 1,
             trip_id: 1,
@@ -17,7 +21,7 @@ function ItinerariesContainer(){
             trip_id: 1,
             name: 'Itinerary B',
             is_favorite: true,
-            totalCost: '$1560',
+            total_cost: '$1560',
             start_date: '29-09-2022',
             end_date: '15-10-2022',
             travel_time: '30'
@@ -27,7 +31,7 @@ function ItinerariesContainer(){
             trip_id: 1,
             name: 'Itinerary C',
             is_favorite: true,
-            totalCost: '$1560',
+            total_cost: '$1560',
             start_date: '29-09-2022',
             end_date: '15-10-2022',
             travel_time: '30'
@@ -37,7 +41,7 @@ function ItinerariesContainer(){
             trip_id: 1,
             name: 'Itinerary D',
             is_favorite: true,
-            totalCost: '$1560',
+            total_cost: '$1560',
             start_date: '29-09-2022',
             end_date: '15-10-2022',
             travel_time: '30'
@@ -50,10 +54,13 @@ function ItinerariesContainer(){
     })
 
     return (
-        <>
+        <Box m='5'>
             <ItineraryContainerHeader></ItineraryContainerHeader>
-            {itineraryCards}
-        </>
+            <SimpleGrid columns={{sm: 1, md: 2, lg:3}} spacingX='20px'>
+            {/* <SimpleGrid minChildWidth='220px' spacingX='20px'> */}
+                {itineraryCards}
+            </SimpleGrid>  
+        </Box>
     )
 }
 
