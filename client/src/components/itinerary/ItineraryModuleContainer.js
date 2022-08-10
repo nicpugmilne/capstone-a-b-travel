@@ -11,7 +11,7 @@ import {
   } from '@chakra-ui/react'  
 import ItineraryModuleItem from './ItineraryModuleItem';
 
-function ItineraryModuleContainer(){
+function ItineraryModuleContainer({setModalOpen}){
 
     const modules = [{
             id: 1,
@@ -61,6 +61,10 @@ function ItineraryModuleContainer(){
         )
     })
 
+    function handleClick(){
+        setModalOpen(true)
+    }
+
     return (
         <Box px={2} py={2}>
             <TableContainer>
@@ -91,8 +95,9 @@ function ItineraryModuleContainer(){
             }}
             _focus={{
                 bg: 'green.500',
-            }}>
-            Add module
+            }}
+            onClick={handleClick}>
+            Add to trip
             </Button>
       </Box>
     )

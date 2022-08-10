@@ -2,6 +2,7 @@ import { Box, SimpleGrid } from "@chakra-ui/react";
 import ItineraryCard from "./ItineraryCard";
 import ItineraryContainerHeader from "./ItineraryContainerHeader";
 import { useState } from "react";
+import CreateModuleModal from "./CreateModuleModal";
 
 function ItinerariesContainer(){
     const [isModalOpen, setModalOpen] = useState(false);
@@ -49,15 +50,19 @@ function ItinerariesContainer(){
     ]
     const itineraryCards = itineraries.map(itinerary => {
         return (
-            <ItineraryCard key={itinerary.id} itinerary={itinerary}></ItineraryCard>
+            <ItineraryCard key={itinerary.id} itinerary={itinerary} setModalOpen={setModalOpen}></ItineraryCard>
         )
     })
+
+    function handleOpenModal(){
+        setModalOpen(true);
+    }
 
     return (
         <Box m='5'>
             <ItineraryContainerHeader></ItineraryContainerHeader>
             <SimpleGrid columns={{sm: 1, md: 2, lg:3}} spacingX='20px'>
-            {/* <SimpleGrid minChildWidth='220px' spacingX='20px'> */}
+               {isModalOpen ? <CreateModuleModal setModalOpen={setModalOpen}/> : null}
                 {itineraryCards}
             </SimpleGrid>  
         </Box>

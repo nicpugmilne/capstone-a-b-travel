@@ -14,7 +14,7 @@ import {MdModeEditOutline} from 'react-icons/md'
 import {MdOutlineDeleteForever} from 'react-icons/md'
 import ItineraryModuleContainer from './ItineraryModuleContainer';
 
-function ItineraryCard({itinerary}){
+function ItineraryCard({itinerary, setModalOpen}){
 
   function handleFavorite(){
     alert('User clicked favorite button')
@@ -51,7 +51,7 @@ function ItineraryCard({itinerary}){
                   <Icon as={MdModeEditOutline} onClick={handleEdit}></Icon>
                   <Icon as={MdOutlineDeleteForever} ml='5' onClick={handleDelete}></Icon>
               </Flex>
-              <ItineraryModuleContainer></ItineraryModuleContainer>
+              <ItineraryModuleContainer setModalOpen={setModalOpen}></ItineraryModuleContainer>
             <Box>
               <Stack align={'center'} justify={'center'} mb='10'>
                   <Text fontSize={'lg'}>Summary:</Text>

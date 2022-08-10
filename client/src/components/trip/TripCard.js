@@ -23,7 +23,7 @@ function TripCard({trip}){
                 maxW={'330px'}
                 w={'full'}
                 bg={useColorModeValue('white', 'gray.800')}
-                boxShadow={'xl'}
+                boxShadow={'lg'}
                 rounded={'lg'}
                 pos={'relative'}
                 // zIndex={1}
