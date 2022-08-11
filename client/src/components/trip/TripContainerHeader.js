@@ -1,8 +1,8 @@
 import { Box, Heading, Spacer, Button, Flex } from "@chakra-ui/react";
 
-function TripContainerHeader() {
+function TripContainerHeader({ setModalOpen }) {
   function handleCreateTrip() {
-    alert("user wants to create trip");
+    setModalOpen(true);
   }
   return (
     <Flex minWidth="max-content" p="4">

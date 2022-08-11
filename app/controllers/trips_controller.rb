@@ -14,7 +14,10 @@ class TripsController < ApplicationController
         render json: itineraries
     end
 
-
+    def create
+        trip = Trip.create!(params.permit(:name, :image_url, :user_id))
+        render json: trip, status: :created
+    end
     private
 
     def find_trip

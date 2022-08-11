@@ -27,7 +27,7 @@ function ItineraryModuleContainer({ setModalOpen, modules }) {
   return (
     <Box>
       <TableContainer>
-        <Table size="sm" variant="unstyled">
+        <Table size="sm" variant="unstyled" my="3">
           <Thead>
             <Tr>
               <Th></Th>

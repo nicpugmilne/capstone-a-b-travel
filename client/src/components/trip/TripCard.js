@@ -36,7 +36,7 @@ function TripCard({ trip }) {
               height={230}
               width={282}
               objectFit={"cover"}
-              src={trip.imageUrl}
+              src={trip.image_url}
             />
             {/* // ) : (
             //   <Image */}

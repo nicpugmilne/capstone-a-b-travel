@@ -1,31 +1,26 @@
-import { useState, useEffect } from "react";
-import { Box, Icon, useDisclosure } from "@chakra-ui/react";
+import { useEffect } from "react";
 import {
+  Icon,
+  useDisclosure,
   Modal,
   ModalOverlay,
   ModalContent,
   ModalHeader,
   ModalFooter,
-  ModalBody,
   ModalCloseButton,
-} from "@chakra-ui/react";
-
-import {
-  Text,
-  HStack,
   Button,
-  Input,
-  Select,
-  FormControl,
-  FormLabel,
+  Tabs,
+  TabList,
+  TabPanels,
+  Tab,
+  TabPanel,
 } from "@chakra-ui/react";
-
-import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 
 import { MdFlight } from "react-icons/md";
 import { MdHotel } from "react-icons/md";
 import { MdDirectionsCar } from "react-icons/md";
 import { MdLocalActivity } from "react-icons/md";
+
 import FlightForm from "./FlightForm";
 import HotelForm from "./HotelForm";
 import GroundTransportationForm from "./GroundTransportationForm";
