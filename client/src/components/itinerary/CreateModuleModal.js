@@ -1,31 +1,37 @@
 import { useState, useEffect } from "react";
 import { Box, Icon, useDisclosure } from "@chakra-ui/react";
 import {
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalFooter,
-    ModalBody,
-    ModalCloseButton,
-  } from "@chakra-ui/react";
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+} from "@chakra-ui/react";
 
-  import {
-    Text,
-    HStack,
-    Button,
-    Input,
-    Select,
-    FormControl,
-    FormLabel,
-  } from "@chakra-ui/react";
-import {MdFlight} from 'react-icons/md'
-import {MdHotel} from 'react-icons/md'
-import {MdDirectionsCar} from 'react-icons/md'
-import {MdLocalActivity} from 'react-icons/md'
+import {
+  Text,
+  HStack,
+  Button,
+  Input,
+  Select,
+  FormControl,
+  FormLabel,
+} from "@chakra-ui/react";
+
+import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
+
+import { MdFlight } from "react-icons/md";
+import { MdHotel } from "react-icons/md";
+import { MdDirectionsCar } from "react-icons/md";
+import { MdLocalActivity } from "react-icons/md";
 import FlightForm from "./FlightForm";
+import HotelForm from "./HotelForm";
+import GroundTransportationForm from "./GroundTransportationForm";
+import ActivityForm from "./ActivityForm";
 
-function CreateModuleModal({setModalOpen}){
+function CreateModuleModal({ setModalOpen }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
@@ -37,33 +43,56 @@ function CreateModuleModal({setModalOpen}){
     onClose();
   }
 
-    return (
-        <Modal isOpen={isOpen} onClose={handleClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Create new module</ModalHeader>
-          <HStack justify={'center'}>
-            <Icon as={MdFlight}>Icon</Icon>
-            <Icon as={MdHotel}>Icon</Icon>
-            <Icon as={MdDirectionsCar}>Icon</Icon>
-            <Icon as={MdLocalActivity}>Icon</Icon>
-          </HStack>
-          <ModalCloseButton />
-            <FlightForm></FlightForm>
-          <ModalFooter>
-            <Button
-              colorScheme="blue"
-              mr={3}
-              onClick={console.log('save button was clicked')}
-              type="submit"
-              form="create-form"
-            >
-              Save
-            </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
-    )
+  return (
+    <Modal isOpen={isOpen} onClose={handleClose}>
+      <ModalOverlay />
+      <ModalContent>
+        <ModalHeader>Create new trip event</ModalHeader>
+        <Tabs variant="soft-rounded" align="center">
+          <TabList>
+            <Tab>
+              <Icon as={MdFlight}>Icon</Icon>
+            </Tab>
+            <Tab>
+              <Icon as={MdHotel}>Icon</Icon>
+            </Tab>
+            <Tab>
+              <Icon as={MdDirectionsCar}>Icon</Icon>
+            </Tab>
+            <Tab>
+              <Icon as={MdLocalActivity}>Icon</Icon>
+            </Tab>
+          </TabList>
+          <TabPanels>
+            <TabPanel>
+              <FlightForm />
+            </TabPanel>
+            <TabPanel>
+              <HotelForm />
+            </TabPanel>
+            <TabPanel>
+              <GroundTransportationForm />
+            </TabPanel>
+            <TabPanel>
+              <ActivityForm />
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
+        <ModalCloseButton />
+        <ModalFooter>
+          <Button
+            colorScheme="blue"
+            mr={3}
+            onClick={console.log("save button was clicked")}
+            type="submit"
+            form="create-form"
+          >
+            Save
+          </Button>
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
+  );
 }
 
 export default CreateModuleModal;
