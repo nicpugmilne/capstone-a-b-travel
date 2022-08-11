@@ -1,56 +1,69 @@
 import {
-    Box,
-    Center,
-    useColorModeValue,
-    Heading,
-    Stack,
-    Image,
-    GridItem,
-  } from '@chakra-ui/react';
+  Box,
+  Center,
+  useColorModeValue,
+  Heading,
+  Stack,
+  Image,
+  GridItem,
+} from "@chakra-ui/react";
+import { useHistory } from "react-router-dom";
 
-function TripCard({trip}){
+function TripCard({ trip }) {
+  const history = useHistory();
+  function handleClick() {
+    history.push(`/trips/${trip.id}`);
+  }
 
-    function handleClick(){
-        alert(`Card ${trip.id} was clicked`)
-    }
-    
-    return (
-        <GridItem>
-            <Center py={12} onClick={handleClick}>
-                <Box
-                role={'group'}
-                p={6}
-                maxW={'330px'}
-                w={'full'}
-                bg={useColorModeValue('white', 'gray.800')}
-                boxShadow={'xl'}
-                rounded={'lg'}
-                pos={'relative'}
-                // zIndex={1}
-                >
-                <Box
-                    rounded={'lg'}
-                    mt={-12}
-                    pos={'relative'}
-                    height={'230px'}
-                    >
-                    <Image
-                    rounded={'lg'}
-                    height={230}
-                    width={282}
-                    objectFit={'cover'}
-                    src={trip.imageUrl}
-                    />
-                </Box>
-                <Stack pt={6} align={'center'}>
-                    <Heading fontSize={'2xl'} fontFamily={'body'} fontWeight={500}>
-                    {trip.name}
-                    </Heading>
-                </Stack>
-                </Box>
-        </Center>
-      </GridItem>
-    )
+  return (
+    <GridItem>
+      <Center py={12} onClick={handleClick}>
+        <Box
+          role={"group"}
+          p={6}
+          maxW={"330px"}
+          w={"full"}
+          bg={useColorModeValue("white", "gray.800")}
+          boxShadow={"lg"}
+          rounded={"lg"}
+          pos={"relative"}
+          // zIndex={1}
+        >
+          <Box rounded={"lg"} mt={-12} pos={"relative"} height={"230px"}>
+            {/* {trip.imageUrl !== null ? ( */}
+            <Image
+              rounded={"lg"}
+              height={230}
+              width={282}
+              objectFit={"cover"}
+              src={trip.imageUrl}
+            />
+            {/* // ) : (
+            //   <Image */}
+            {/* //     rounded={"lg"}
+            //     height={230}
+            //     width={282}
+            //     objectFit={"cover"}
+            //     src="https://deconova.eu/wp-content/uploads/2016/02/default-placeholder.png"
+            //   />
+            // )} */}
+            {/* // <Image */}
+            {/* // rounded={"lg"}
+            // height={230}
+            // width={282}
+            // objectFit={"cover"}
+            // src={trip.imageUrl}
+            // /> */}
+          </Box>
+          <Stack pt={6} align={"center"}>
+            <Heading fontSize={"2xl"} fontFamily={"body"} fontWeight={500}>
+              {trip.name}
+            </Heading>
+          </Stack>
+        </Box>
+      </Center>
+    </GridItem>
+  );
 }
 
 export default TripCard;
