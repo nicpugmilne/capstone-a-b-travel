@@ -1,54 +1,24 @@
 import { Box, SimpleGrid } from "@chakra-ui/react";
 import ItineraryCard from "./ItineraryCard";
 import ItineraryContainerHeader from "./ItineraryContainerHeader";
-import { useState } from "react";
 import CreateModuleModal from "./CreateModuleModal";
+import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 function ItinerariesContainer() {
+  const { trip_id } = useParams();
   const [isModalOpen, setModalOpen] = useState(false);
+  const [itineraries, setItineraries] = useState([]);
 
-  const itineraries = [
-    {
-      id: 1,
-      trip_id: 1,
-      name: "Itinerary A",
-      is_favorite: true,
-      total_cost: "$1560",
-      start_date: "29-09-2022",
-      end_date: "15-10-2022",
-      travel_time: "30",
-    },
-    {
-      id: 2,
-      trip_id: 1,
-      name: "Itinerary B",
-      is_favorite: true,
-      total_cost: "$1560",
-      start_date: "29-09-2022",
-      end_date: "15-10-2022",
-      travel_time: "30",
-    },
-    {
-      id: 3,
-      trip_id: 1,
-      name: "Itinerary C",
-      is_favorite: true,
-      total_cost: "$1560",
-      start_date: "29-09-2022",
-      end_date: "15-10-2022",
-      travel_time: "30",
-    },
-    {
-      id: 4,
-      trip_id: 1,
-      name: "Itinerary D",
-      is_favorite: true,
-      total_cost: "$1560",
-      start_date: "29-09-2022",
-      end_date: "15-10-2022",
-      travel_time: "30",
-    },
-  ];
+  useEffect(() => {
+    fetch(`/trips/${trip_id}/itineraries`, {
+      method: "get",
+      // credentials: "include",
+    })
+      .then((res) => res.json())
+      .then((data) => setItineraries(data));
+  }, []);
+
   const itineraryCards = itineraries.map((itinerary) => {
     return (
       <ItineraryCard
@@ -58,10 +28,6 @@ function ItinerariesContainer() {
       ></ItineraryCard>
     );
   });
-
-  function handleOpenModal() {
-    setModalOpen(true);
-  }
 
   return (
     <Box>

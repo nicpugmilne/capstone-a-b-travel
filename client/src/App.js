@@ -20,11 +20,10 @@ function App() {
         <Route exact path="/">
           <TripsContainer></TripsContainer>
         </Route>
-        <Route path="/trips">
+        <Route path="/trips/:trip_id">
           <ItinerariesContainer></ItinerariesContainer>
         </Route>
       </Switch>
-      
     </>
 
     // <BrowserRouter>

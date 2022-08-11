@@ -39,10 +39,12 @@ function GroundTransportationForm() {
   };
 
   return (
-    <ModalBody>
+    <ModalBody p="2">
       <form id="create-form">
         <FormControl>
-          <FormLabel mb="8px">Transportation name:</FormLabel>
+          <FormLabel mb="8px" fontSize="sm">
+            Transportation name:
+          </FormLabel>
           <Input
             value={nameValue}
             name="nameInput"
@@ -50,7 +52,9 @@ function GroundTransportationForm() {
             placeholder="Eg. Amtrak 123 or Hertz car rental"
             size="sm"
           />
-          <FormLabel mb="8px">Start date:</FormLabel>
+          <FormLabel my="8px" fontSize="sm">
+            Start date:
+          </FormLabel>
           <Input
             value={startDateValue}
             type="date"
@@ -58,7 +62,9 @@ function GroundTransportationForm() {
             onChange={handleChange}
             size="sm"
           />
-          <FormLabel mb="8px">End date:</FormLabel>
+          <FormLabel my="8px" fontSize="sm">
+            End date:
+          </FormLabel>
           <Input
             value={endDateValue}
             type="date"
@@ -66,7 +72,9 @@ function GroundTransportationForm() {
             onChange={handleChange}
             size="sm"
           />
-          <FormLabel mb="8px">Duration:</FormLabel>
+          <FormLabel my="8px" fontSize="sm">
+            Duration:
+          </FormLabel>
           <Input
             value={durationValue}
             name="durationInput"
@@ -74,7 +82,9 @@ function GroundTransportationForm() {
             placeholder="Enter duration in minutes"
             size="sm"
           />
-          <FormLabel mb="8px">Cost:</FormLabel>
+          <FormLabel my="8px" fontSize="sm">
+            Cost:
+          </FormLabel>
           <Input
             value={costValue}
             name="costInput"
@@ -82,7 +92,9 @@ function GroundTransportationForm() {
             placeholder="Enter cost in your currency"
             size="sm"
           />
-          <FormLabel mb="8px">Notes:</FormLabel>
+          <FormLabel my="8px" fontSize="sm">
+            Notes:
+          </FormLabel>
           <Input
             value={notesValue}
             name="notesInput"

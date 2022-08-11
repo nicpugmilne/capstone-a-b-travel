@@ -35,10 +35,12 @@ function ActivityForm() {
   };
 
   return (
-    <ModalBody>
+    <ModalBody p="2">
       <form id="create-form">
         <FormControl>
-          <FormLabel mb="8px">Activity name:</FormLabel>
+          <FormLabel mb="8px" fontSize="sm">
+            Activity name:
+          </FormLabel>
           <Input
             value={nameValue}
             name="nameInput"
@@ -46,7 +48,9 @@ function ActivityForm() {
             placeholder="Paraglide in the Himalayas"
             size="sm"
           />
-          <FormLabel mb="8px">Start date:</FormLabel>
+          <FormLabel my="8px" fontSize="sm">
+            Start date:
+          </FormLabel>
           <Input
             value={startDateValue}
             type="date"
@@ -54,7 +58,9 @@ function ActivityForm() {
             onChange={handleChange}
             size="sm"
           />
-          <FormLabel mb="8px">End date:</FormLabel>
+          <FormLabel my="8px" fontSize="sm">
+            End date:
+          </FormLabel>
           <Input
             value={endDateValue}
             type="date"
@@ -62,7 +68,9 @@ function ActivityForm() {
             onChange={handleChange}
             size="sm"
           />
-          <FormLabel mb="8px">Cost:</FormLabel>
+          <FormLabel my="8px" fontSize="sm">
+            Cost:
+          </FormLabel>
           <Input
             value={costValue}
             name="costInput"
@@ -70,7 +78,9 @@ function ActivityForm() {
             placeholder="Enter cost in your currency"
             size="sm"
           />
-          <FormLabel mb="8px">Notes:</FormLabel>
+          <FormLabel my="8px" fontSize="sm">
+            Notes:
+          </FormLabel>
           <Input
             value={notesValue}
             name="notesInput"

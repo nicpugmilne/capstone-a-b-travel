@@ -13,8 +13,10 @@ import { MdOutlineStarOutline } from "react-icons/md";
 import { MdModeEditOutline } from "react-icons/md";
 import { MdOutlineDeleteForever } from "react-icons/md";
 import ItineraryModuleContainer from "./ItineraryModuleContainer";
+import { useState, useEffect } from "react";
 
 function ItineraryCard({ itinerary, setModalOpen }) {
+  console.log(itinerary);
   function handleFavorite() {
     alert("User clicked favorite button");
   }
@@ -56,18 +58,20 @@ function ItineraryCard({ itinerary, setModalOpen }) {
           </Flex>
           <ItineraryModuleContainer
             setModalOpen={setModalOpen}
+            modules={itinerary.itinerary_modules}
           ></ItineraryModuleContainer>
           <Box>
             <Stack align={"center"} justify={"center"} mb="10">
               <Text fontSize={"lg"}>Summary:</Text>
               <Text fontSize={"sm"} fontWeight={500}>
-                Total Cost: {itinerary.total_cost}
+                Total Cost: ${itinerary.total_cost}
               </Text>
               <Text fontSize={"sm"} fontWeight={500}>
-                Dates: {itinerary.start_date} - {itinerary.end_date}
+                Dates: {itinerary.itinerary_start_date} -{" "}
+                {itinerary.itinerary_end_date}
               </Text>
               <Text fontSize={"sm"} fontWeight={500}>
-                Travel time: {itinerary.travel_time} hrs
+                Travel time: {(itinerary.travel_time / 60).toPrecision(3)} hrs
               </Text>
             </Stack>
           </Box>

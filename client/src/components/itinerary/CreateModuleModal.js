@@ -45,8 +45,8 @@ function CreateModuleModal({ setModalOpen }) {
 
   return (
     <Modal isOpen={isOpen} onClose={handleClose}>
-      <ModalOverlay />
-      <ModalContent>
+      <ModalOverlay w="full" />
+      <ModalContent align="center">
         <ModalHeader>Create new trip event</ModalHeader>
         <Tabs variant="soft-rounded" align="center">
           <TabList>
