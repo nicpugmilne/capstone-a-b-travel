@@ -1,7 +1,7 @@
 import { Box, Heading, Button, Flex } from "@chakra-ui/react";
 import { useHistory } from "react-router-dom";
 
-function ItineraryContainerHeader() {
+function ItineraryContainerHeader({ tripName }) {
   const history = useHistory();
   function goBack() {
     history.push(`/`);
@@ -18,7 +18,7 @@ function ItineraryContainerHeader() {
       </Box>
       <Box>
         {/* Would be nice to edit the trip title from here */}
-        <Heading size="lg">Trip Title</Heading>
+        <Heading size="lg">{tripName}</Heading>
       </Box>
       <Box>
         <Button onClick={handleCreate}>Create new Itinerary</Button>

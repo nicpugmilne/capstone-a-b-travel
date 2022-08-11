@@ -9,6 +9,7 @@ function ItinerariesContainer() {
   const { trip_id } = useParams();
   const [isModalOpen, setModalOpen] = useState(false);
   const [itineraries, setItineraries] = useState([]);
+  const [tripName, setTripName] = useState("");
 
   useEffect(() => {
     fetch(`/trips/${trip_id}/itineraries`, {
@@ -16,8 +17,13 @@ function ItinerariesContainer() {
       // credentials: "include",
     })
       .then((res) => res.json())
-      .then((data) => setItineraries(data));
+      .then((data) => establishTripData(data));
   }, []);
+
+  function establishTripData(data) {
+    setItineraries(data);
+    setTripName(data[0].trip.name);
+  }
 
   const itineraryCards = itineraries.map((itinerary) => {
     return (
@@ -31,7 +37,7 @@ function ItinerariesContainer() {
 
   return (
     <Box>
-      <ItineraryContainerHeader></ItineraryContainerHeader>
+      <ItineraryContainerHeader tripName={tripName}></ItineraryContainerHeader>
       <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacingX="20px">
         {isModalOpen ? <CreateModuleModal setModalOpen={setModalOpen} /> : null}
         {itineraryCards}

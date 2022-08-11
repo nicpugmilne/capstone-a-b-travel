@@ -13,10 +13,8 @@ import { MdOutlineStarOutline } from "react-icons/md";
 import { MdModeEditOutline } from "react-icons/md";
 import { MdOutlineDeleteForever } from "react-icons/md";
 import ItineraryModuleContainer from "./ItineraryModuleContainer";
-import { useState, useEffect } from "react";
 
 function ItineraryCard({ itinerary, setModalOpen }) {
-  console.log(itinerary);
   function handleFavorite() {
     alert("User clicked favorite button");
   }
