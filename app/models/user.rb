@@ -1,4 +1,4 @@
-class User < ApplicationRecord
+class User < ActiveRecord::Base
     has_many :trips
     has_many :itineraries, through: :trips
     validates :username, presence: true, uniqueness: true
