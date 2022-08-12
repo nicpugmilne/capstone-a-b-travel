@@ -78,7 +78,7 @@ function CreateModuleModal({ setModalOpen }) {
           <Button
             colorScheme="blue"
             mr={3}
-            onClick={console.log("save button was clicked")}
+            onClick={() => console.log("save button was clicked")}
             type="submit"
             form="create-form"
           >

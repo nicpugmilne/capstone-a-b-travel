@@ -7,7 +7,7 @@ import CreateTripModal from "./CreateTripModal";
 import React, { useState, useEffect } from "react";
 
 function TripsContainer() {
-  const [realTrips, setTrips] = useState([]);
+  const [trips, setTrips] = useState([]);
   const [isModalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
@@ -21,7 +21,7 @@ function TripsContainer() {
       });
   }, []);
 
-  const tripCards = realTrips.map((trip) => {
+  const tripCards = trips.map((trip) => {
     return <TripCard key={trip.id} trip={trip}></TripCard>;
   });
 
