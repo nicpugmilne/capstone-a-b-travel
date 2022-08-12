@@ -6,8 +6,10 @@ Rails.application.routes.draw do
   resources :users
   # get '/hello', to: 'application#hello_world'
 
-  get "/trips/:trip_id/itineraries",
-  to: "trips#itineraries_index"
+  # namespace :api do
+    get "/trips/:trip_id/itineraries",
+    to: "trips#itineraries_index"
+  # end
 
   get '*path',
       to: 'fallback#index',

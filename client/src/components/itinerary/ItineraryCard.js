@@ -8,6 +8,7 @@ import {
   useColorModeValue,
   Flex,
   Spacer,
+  Square,
 } from "@chakra-ui/react";
 import { MdOutlineStarOutline } from "react-icons/md";
 import { MdModeEditOutline } from "react-icons/md";
@@ -32,12 +33,15 @@ function ItineraryCard({ itinerary, setModalOpen }) {
       <Center py={6}>
         <Box
           maxW={"500px"}
+          minH={"550px"}
           w={"full"}
           bg={useColorModeValue("gray.50", "gray.500")}
           boxShadow={"lg"}
           rounded={"md"}
+          m={"auto"}
+          className="secondProblem"
         >
-          <Flex align={"center"} justify={"center"} m="5">
+          <Flex align={"center"} m="5">
             <Text fontSize={"xl"} fontWeight={500} p={2} px={3}>
               {itinerary.name}
             </Text>

@@ -1,12 +1,26 @@
-import { ModalBody, Input, FormControl, FormLabel } from "@chakra-ui/react";
-import { useState } from "react";
+import {
+  ModalBody,
+  Input,
+  FormControl,
+  FormLabel,
+  Textarea,
+} from "@chakra-ui/react";
+import { useContext } from "react";
+import { ActivityFormContext } from "../../context/ActivityFormContext";
 
 function ActivityForm() {
-  const [nameValue, setNameValue] = useState("");
-  const [startDateValue, setStartDateValue] = useState("");
-  const [endDateValue, setEndDateValue] = useState("");
-  const [costValue, setCostValue] = useState();
-  const [notesValue, setNotesValue] = useState("");
+  const {
+    nameValue,
+    setNameValue,
+    startDateValue,
+    setStartDateValue,
+    endDateValue,
+    setEndDateValue,
+    costValue,
+    setCostValue,
+    notesValue,
+    setNotesValue,
+  } = useContext(ActivityFormContext);
 
   const handleChange = (event) => {
     switch (event.target.name) {
@@ -71,11 +85,12 @@ function ActivityForm() {
             onChange={handleChange}
             placeholder="Enter cost in your currency"
             size="sm"
+            type="number"
           />
           <FormLabel my="8px" fontSize="sm">
             Notes:
           </FormLabel>
-          <Input
+          <Textarea
             value={notesValue}
             name="notesInput"
             onChange={handleChange}
