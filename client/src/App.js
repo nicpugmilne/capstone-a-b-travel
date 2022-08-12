@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import Header from "./components/Header";
 import ItinerariesContainer from "./components/itinerary/ItinerariesContainer";

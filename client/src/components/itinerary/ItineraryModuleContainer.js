@@ -43,15 +43,15 @@ function ItineraryModuleContainer({ setModalOpen, modules }) {
       <Button
         my={8}
         w={"full"}
-        bg={"green.400"}
+        bg={"green.300"}
         color={"white"}
         rounded={"xl"}
         boxShadow={"0 5px 20px 0px rgb(72 187 120 / 43%)"}
         _hover={{
-          bg: "green.500",
+          bg: "green.400",
         }}
         _focus={{
-          bg: "green.500",
+          bg: "green.400",
         }}
         onClick={handleClick}
       >

@@ -1,10 +1,4 @@
-import {
-  ModalBody,
-  Input,
-  Select,
-  FormControl,
-  FormLabel,
-} from "@chakra-ui/react";
+import { ModalBody, Input, FormControl, FormLabel } from "@chakra-ui/react";
 import { useState } from "react";
 
 function HotelForm() {

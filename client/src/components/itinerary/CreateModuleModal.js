@@ -31,7 +31,7 @@ function CreateModuleModal({ setModalOpen }) {
 
   useEffect(() => {
     onOpen();
-  }, []);
+  });
 
   function handleClose() {
     setModalOpen(false);

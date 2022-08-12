@@ -4,6 +4,7 @@ import ItineraryContainerHeader from "./ItineraryContainerHeader";
 import CreateModuleModal from "./CreateModuleModal";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { ActivityFormProvider } from "../../context/ActivityFormContext";
 
 function ItinerariesContainer() {
   const { trip_id } = useParams();
@@ -18,7 +19,7 @@ function ItinerariesContainer() {
     })
       .then((res) => res.json())
       .then((data) => establishTripData(data));
-  }, []);
+  }, [trip_id]);
 
   function establishTripData(data) {
     setItineraries(data);
@@ -38,8 +39,16 @@ function ItinerariesContainer() {
   return (
     <Box>
       <ItineraryContainerHeader tripName={tripName}></ItineraryContainerHeader>
-      <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacingX="20px">
-        {isModalOpen ? <CreateModuleModal setModalOpen={setModalOpen} /> : null}
+      <SimpleGrid
+        columns={{ sm: 1, md: 2, lg: 3 }}
+        spacingX="20px"
+        alignItems="center"
+      >
+        {isModalOpen ? (
+          <ActivityFormProvider>
+            <CreateModuleModal setModalOpen={setModalOpen} />
+          </ActivityFormProvider>
+        ) : null}
         {itineraryCards}
       </SimpleGrid>
     </Box>
