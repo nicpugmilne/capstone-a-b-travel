@@ -1,20 +1,42 @@
 import { Box, Heading, Button, Flex } from "@chakra-ui/react";
 import { useHistory } from "react-router-dom";
 
-function ItineraryContainerHeader({ tripName }) {
+function ItineraryContainerHeader({
+  tripName,
+  tripId,
+  itineraryCount,
+  setItineraryCount,
+  handleAddItinerary,
+}) {
   const history = useHistory();
-  function goBack() {
-    history.push(`/trips`);
-  }
 
   function handleCreate() {
-    alert("user wants to create new itinerary");
+    const newItinerary = {
+      trip_id: tripId,
+      name: `Itinerary ${itineraryCount + 1}`,
+      is_favorite: false,
+      is_published: false,
+    };
+    // fetch("/itineraries", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   credentials: "include",
+    //   body: JSON.stringify(newItinerary),
+    // })
+    //   .then((r) => r.json())
+    //   .then((newItinerary) => handleAddItinerary(newItinerary));
+    handleAddItinerary(newItinerary);
+    setItineraryCount(itineraryCount + 1);
   }
 
   return (
     <Flex minWidth="max-content" p="4" justifyContent="space-between">
       <Box>
-        <Button onClick={goBack}>Back to All Trips</Button>
+        <Button onClick={() => history.push(`/trips`)}>
+          Back to All Trips
+        </Button>
       </Box>
       <Box>
         {/* Would be nice to edit the trip title from here */}

@@ -4,12 +4,11 @@ Rails.application.routes.draw do
   resources :itineraries
   resources :trips
   resources :users
-  # get '/hello', to: 'application#hello_world'
 
-  # namespace :api do
-    get "/trips/:trip_id/itineraries",
-    to: "trips#itineraries_index"
-  # end
+  get "/trips/:trip_id/itineraries",
+  to: "trips#itineraries_index"
+
+  get "/users/:user_id/trips", to: "trips#user_trips_index"
 
   # auth routes
   post "/signup", to: "users#create"

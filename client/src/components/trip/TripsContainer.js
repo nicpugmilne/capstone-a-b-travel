@@ -4,14 +4,17 @@ import { Box, SimpleGrid } from "@chakra-ui/react";
 import TripCard from "./TripCard";
 import TripContainerHeader from "./TripContainerHeader";
 import CreateTripModal from "./CreateTripModal";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { UserContext } from "../../context/UserContext";
+import { TripsContext } from "../../context/TripsContext";
 
 function TripsContainer() {
-  const [trips, setTrips] = useState([]);
+  const { trips, setTrips } = useContext(TripsContext);
+  const { user } = useContext(UserContext);
   const [isModalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
-    fetch(`/trips`, {
+    fetch(`/users/${user.id}/trips`, {
       method: "GET",
       credentials: "include",
     })
@@ -25,11 +28,20 @@ function TripsContainer() {
     return <TripCard key={trip.id} trip={trip}></TripCard>;
   });
 
+  function handleAddTrip(newTrip) {
+    setTrips([...trips, newTrip]);
+  }
+
   return (
     <Box>
       <TripContainerHeader setModalOpen={setModalOpen} />
       <SimpleGrid minChildWidth="280px" spacingX="40px" spacingY="10px">
-        {isModalOpen ? <CreateTripModal setModalOpen={setModalOpen} /> : null}
+        {isModalOpen ? (
+          <CreateTripModal
+            setModalOpen={setModalOpen}
+            handleAddTrip={handleAddTrip}
+          />
+        ) : null}
         {tripCards}
       </SimpleGrid>
     </Box>

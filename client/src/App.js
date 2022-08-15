@@ -4,10 +4,11 @@ import DashboardContainer from "./components/DashboardContainer";
 import ItinerariesContainer from "./components/itinerary/ItinerariesContainer";
 import TripsContainer from "./components/trip/TripsContainer";
 import HomeContainer from "./components/HomeContainer";
-import { useState, useEffect } from "react";
+import { useContext, useEffect } from "react";
+import { UserContext } from "./context/UserContext";
 
 function App() {
-  const [user, setUser] = useState({});
+  const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
     fetch("/me").then((response) => {
@@ -15,6 +16,7 @@ function App() {
         response.json().then((user) => setUser(user));
       } else {
         console.log(response);
+        console.log("no users logged in");
       }
     });
   }, []);
@@ -23,13 +25,13 @@ function App() {
 
   return (
     <>
-      <Header user={user} setUser={setUser}></Header>
+      <Header></Header>
       <Switch>
         <Route exact path="/">
-          <HomeContainer setUser={setUser} user={user}></HomeContainer>
+          <HomeContainer></HomeContainer>
         </Route>
         <Route exact path="/discover">
-          <DashboardContainer setUser={setUser} user={user} />
+          <DashboardContainer />
         </Route>
         <Route exact path="/trips">
           <TripsContainer></TripsContainer>

@@ -27,10 +27,8 @@ function TripCard({ trip }) {
           boxShadow={"lg"}
           rounded={"lg"}
           pos={"relative"}
-          // zIndex={1}
         >
           <Box rounded={"lg"} mt={-12} pos={"relative"} height={"230px"}>
-            {/* {trip.imageUrl !== null ? ( */}
             <Image
               rounded={"lg"}
               height={230}
@@ -38,22 +36,6 @@ function TripCard({ trip }) {
               objectFit={"cover"}
               src={trip.image_url}
             />
-            {/* // ) : (
-            //   <Image */}
-            {/* //     rounded={"lg"}
-            //     height={230}
-            //     width={282}
-            //     objectFit={"cover"}
-            //     src="https://deconova.eu/wp-content/uploads/2016/02/default-placeholder.png"
-            //   />
-            // )} */}
-            {/* // <Image */}
-            {/* // rounded={"lg"}
-            // height={230}
-            // width={282}
-            // objectFit={"cover"}
-            // src={trip.imageUrl}
-            // /> */}
           </Box>
           <Stack pt={6} align={"center"}>
             <Heading fontSize={"2xl"} fontFamily={"body"} fontWeight={500}>

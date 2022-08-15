@@ -8,4 +8,9 @@ class ItinerariesController < ApplicationController
         itinerary = Itinerary.find(params[:id])
         render json: itinerary
     end
+
+    def create
+        itinerary = Itinerary.create!(params.permit(:trip_id, :name, :is_favorite, :is_published))
+        render json: itinerary, status: :created
+    end
 end
