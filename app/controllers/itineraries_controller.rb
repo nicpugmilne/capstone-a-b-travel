@@ -13,4 +13,10 @@ class ItinerariesController < ApplicationController
         itinerary = Itinerary.create!(params.permit(:trip_id, :name, :is_favorite, :is_published))
         render json: itinerary, status: :created
     end
+
+    def destroy
+        itinerary = Itinerary.find(params[:id])
+        itinerary.destroy
+        head :no_content
+      end
 end

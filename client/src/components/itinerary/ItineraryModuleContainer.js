@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import ItineraryModuleItem from "./ItineraryModuleItem";
 
-function ItineraryModuleContainer({ setModalOpen, modules }) {
+function ItineraryModuleContainer({ modules }) {
   const moduleItems = modules.map((module) => {
     return (
       <ItineraryModuleItem
@@ -19,10 +19,6 @@ function ItineraryModuleContainer({ setModalOpen, modules }) {
       ></ItineraryModuleItem>
     );
   });
-
-  function handleClick() {
-    setModalOpen(true);
-  }
 
   return (
     <Box>
@@ -40,23 +36,6 @@ function ItineraryModuleContainer({ setModalOpen, modules }) {
           <Tbody>{moduleItems}</Tbody>
         </Table>
       </TableContainer>
-      <Button
-        my={8}
-        w={"full"}
-        bg={"green.300"}
-        color={"white"}
-        rounded={"xl"}
-        boxShadow={"0 5px 20px 0px rgb(72 187 120 / 43%)"}
-        _hover={{
-          bg: "green.400",
-        }}
-        _focus={{
-          bg: "green.400",
-        }}
-        onClick={handleClick}
-      >
-        Add to trip
-      </Button>
     </Box>
   );
 }

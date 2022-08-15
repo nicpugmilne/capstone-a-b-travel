@@ -1,35 +1,8 @@
 import { Box, Heading, Button, Flex } from "@chakra-ui/react";
 import { useHistory } from "react-router-dom";
 
-function ItineraryContainerHeader({
-  tripName,
-  tripId,
-  itineraryCount,
-  setItineraryCount,
-  handleAddItinerary,
-}) {
+function ItineraryContainerHeader({ tripName, handleCreateItinerary }) {
   const history = useHistory();
-
-  function handleCreate() {
-    const newItinerary = {
-      trip_id: tripId,
-      name: `Itinerary ${itineraryCount + 1}`,
-      is_favorite: false,
-      is_published: false,
-    };
-    // fetch("/itineraries", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   credentials: "include",
-    //   body: JSON.stringify(newItinerary),
-    // })
-    //   .then((r) => r.json())
-    //   .then((newItinerary) => handleAddItinerary(newItinerary));
-    handleAddItinerary(newItinerary);
-    setItineraryCount(itineraryCount + 1);
-  }
 
   return (
     <Flex minWidth="max-content" p="4" justifyContent="space-between">
@@ -43,7 +16,7 @@ function ItineraryContainerHeader({
         <Heading size="lg">{tripName}</Heading>
       </Box>
       <Box>
-        <Button onClick={handleCreate}>Create new Itinerary</Button>
+        <Button onClick={handleCreateItinerary}>Create new Itinerary</Button>
       </Box>
     </Flex>
   );
