@@ -1,103 +1,124 @@
-import { ModalBody, Input, FormControl, FormLabel } from "@chakra-ui/react";
-import { useState } from "react";
+import {
+  ModalBody,
+  Input,
+  FormControl,
+  FormLabel,
+  Textarea,
+  Button,
+} from "@chakra-ui/react";
+import { useContext } from "react";
+import { GroundTransportationFormContext } from "../../context/GroundTransportationFormContext";
 
-function GroundTransportationForm() {
-  const [nameValue, setNameValue] = useState("");
-  const [startDateValue, setStartDateValue] = useState("");
-  const [endDateValue, setEndDateValue] = useState("");
-  const [durationValue, setDurationValue] = useState();
-  const [costValue, setCostValue] = useState();
-  const [notesValue, setNotesValue] = useState("");
+function GroundTransportationForm({ handleModalClose }) {
+  const {
+    groundTransportationNameValue,
+    setGroundTransportationNameValue,
+    groundTransportationStartDateValue,
+    setGroundTransportationStartDateValue,
+    groundTransportationEndDateValue,
+    setGroundTransportationEndDateValue,
+    groundTransportationCostValue,
+    setGroundTransportationCostValue,
+    groundTransportationDurationValue,
+    setGroundTransportationDurationValue,
+    groundTransportationNotesValue,
+    setGroundTransportationNotesValue,
+  } = useContext(GroundTransportationFormContext);
 
   const handleChange = (event) => {
     switch (event.target.name) {
       case "nameInput":
-        setNameValue(event.target.value);
+        setGroundTransportationNameValue(event.target.value);
         break;
       case "startDateInput":
-        setStartDateValue(event.target.value);
+        setGroundTransportationStartDateValue(event.target.value);
         break;
       case "endDateInput":
-        setEndDateValue(event.target.value);
+        setGroundTransportationEndDateValue(event.target.value);
         break;
       case "durationInput":
-        setDurationValue(event.target.value);
+        setGroundTransportationDurationValue(event.target.value);
         break;
       case "costInput":
-        setCostValue(event.target.value);
+        setGroundTransportationCostValue(event.target.value);
         break;
       case "notesInput":
-        setNotesValue(event.target.value);
+        setGroundTransportationNotesValue(event.target.value);
         break;
     }
   };
 
+  function handleSave() {
+    handleModalClose();
+  }
+
   return (
     <ModalBody p="2">
-      <form id="create-form">
-        <FormControl>
-          <FormLabel mb="8px" fontSize="sm">
-            Transportation name:
-          </FormLabel>
-          <Input
-            value={nameValue}
-            name="nameInput"
-            onChange={handleChange}
-            placeholder="Eg. Amtrak 123 or Hertz car rental"
-            size="sm"
-          />
-          <FormLabel my="8px" fontSize="sm">
-            Start date:
-          </FormLabel>
-          <Input
-            value={startDateValue}
-            type="date"
-            name="startDateInput"
-            onChange={handleChange}
-            size="sm"
-          />
-          <FormLabel my="8px" fontSize="sm">
-            End date:
-          </FormLabel>
-          <Input
-            value={endDateValue}
-            type="date"
-            name="endDateInput"
-            onChange={handleChange}
-            size="sm"
-          />
-          <FormLabel my="8px" fontSize="sm">
-            Duration:
-          </FormLabel>
-          <Input
-            value={durationValue}
-            name="durationInput"
-            onChange={handleChange}
-            placeholder="Enter duration in minutes"
-            size="sm"
-          />
-          <FormLabel my="8px" fontSize="sm">
-            Cost:
-          </FormLabel>
-          <Input
-            value={costValue}
-            name="costInput"
-            onChange={handleChange}
-            placeholder="Enter cost in your currency"
-            size="sm"
-          />
-          <FormLabel my="8px" fontSize="sm">
-            Notes:
-          </FormLabel>
-          <Input
-            value={notesValue}
-            name="notesInput"
-            onChange={handleChange}
-            placeholder="Enter notes you want to save"
-            size="sm"
-          />
-        </FormControl>
-      </form>
+      <FormControl>
+        <FormLabel mb="8px" fontSize="sm">
+          Transportation name:
+        </FormLabel>
+        <Input
+          value={groundTransportationNameValue}
+          name="nameInput"
+          onChange={handleChange}
+          placeholder="Eg. Amtrak 123 or Hertz car rental"
+          size="sm"
+        />
+        <FormLabel my="8px" fontSize="sm">
+          Start date:
+        </FormLabel>
+        <Input
+          value={groundTransportationStartDateValue}
+          type="date"
+          name="startDateInput"
+          onChange={handleChange}
+          size="sm"
+        />
+        <FormLabel my="8px" fontSize="sm">
+          End date:
+        </FormLabel>
+        <Input
+          value={groundTransportationEndDateValue}
+          type="date"
+          name="endDateInput"
+          onChange={handleChange}
+          size="sm"
+        />
+        <FormLabel my="8px" fontSize="sm">
+          Duration:
+        </FormLabel>
+        <Input
+          value={groundTransportationDurationValue}
+          name="durationInput"
+          onChange={handleChange}
+          placeholder="Enter duration in minutes"
+          size="sm"
+        />
+        <FormLabel my="8px" fontSize="sm">
+          Cost:
+        </FormLabel>
+        <Input
+          value={groundTransportationCostValue}
+          name="costInput"
+          onChange={handleChange}
+          placeholder="Enter cost in your currency"
+          size="sm"
+        />
+        <FormLabel my="8px" fontSize="sm">
+          Notes:
+        </FormLabel>
+        <Textarea
+          value={groundTransportationNotesValue}
+          name="notesInput"
+          onChange={handleChange}
+          placeholder="Enter notes you want to save"
+          size="sm"
+        />
+      </FormControl>
+      <Button colorScheme="blue" mt={5} onClick={handleSave}>
+        Save
+      </Button>
     </ModalBody>
   );
 }

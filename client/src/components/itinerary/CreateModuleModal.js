@@ -6,9 +6,7 @@ import {
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalFooter,
   ModalCloseButton,
-  Button,
   Tabs,
   TabList,
   TabPanels,
@@ -26,7 +24,7 @@ import HotelForm from "./HotelForm";
 import GroundTransportationForm from "./GroundTransportationForm";
 import ActivityForm from "./ActivityForm";
 
-function CreateModuleModal({ setModalOpen }) {
+function CreateModuleModal({ setModalOpen, itineraryId, handleAddModule }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
@@ -60,31 +58,33 @@ function CreateModuleModal({ setModalOpen }) {
           </TabList>
           <TabPanels>
             <TabPanel>
-              <FlightForm />
+              <FlightForm
+                handleModalClose={handleClose}
+                itineraryId={itineraryId}
+                handleAddModule={handleAddModule}
+              />
             </TabPanel>
             <TabPanel>
-              <HotelForm />
+              <HotelForm
+                handleModalClose={handleClose}
+                itineraryId={itineraryId}
+              />
             </TabPanel>
             <TabPanel>
-              <GroundTransportationForm />
+              <GroundTransportationForm
+                handleModalClose={handleClose}
+                itineraryId={itineraryId}
+              />
             </TabPanel>
             <TabPanel>
-              <ActivityForm />
+              <ActivityForm
+                handleModalClose={handleClose}
+                itineraryId={itineraryId}
+              />
             </TabPanel>
           </TabPanels>
         </Tabs>
         <ModalCloseButton />
-        <ModalFooter>
-          <Button
-            colorScheme="blue"
-            mr={3}
-            onClick={() => console.log("save button was clicked")}
-            type="submit"
-            form="create-form"
-          >
-            Save
-          </Button>
-        </ModalFooter>
       </ModalContent>
     </Modal>
   );

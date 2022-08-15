@@ -3,23 +3,23 @@ import { createContext, useState } from "react";
 export const ActivityFormContext = createContext();
 
 export const ActivityFormProvider = ({ children }) => {
-  const [nameValue, setNameValue] = useState("");
-  const [startDateValue, setStartDateValue] = useState("");
-  const [endDateValue, setEndDateValue] = useState("");
-  const [costValue, setCostValue] = useState();
-  const [notesValue, setNotesValue] = useState("");
+  const [activityNameValue, setActivityNameValue] = useState("");
+  const [activityStartDateValue, setActivityStartDateValue] = useState("");
+  const [activityEndDateValue, setActivityEndDateValue] = useState("");
+  const [activityCostValue, setActivityCostValue] = useState();
+  const [activityNotesValue, setActivityNotesValue] = useState("");
 
   const value = {
-    nameValue,
-    setNameValue,
-    startDateValue,
-    setStartDateValue,
-    endDateValue,
-    setEndDateValue,
-    costValue,
-    setCostValue,
-    notesValue,
-    setNotesValue,
+    activityNameValue,
+    setActivityNameValue,
+    activityStartDateValue,
+    setActivityStartDateValue,
+    activityEndDateValue,
+    setActivityEndDateValue,
+    activityCostValue,
+    setActivityCostValue,
+    activityNotesValue,
+    setActivityNotesValue,
   };
 
   return (
