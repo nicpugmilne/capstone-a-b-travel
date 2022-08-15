@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import {
   useDisclosure,
   Modal,
@@ -13,8 +13,10 @@ import {
   Input,
   Button,
 } from "@chakra-ui/react";
+import { UserContext } from "../../context/UserContext";
 
-function CreateTripModal({ setModalOpen }) {
+function CreateTripModal({ setModalOpen, handleAddTrip }) {
+  const { user } = useContext(UserContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [nameValue, setNameValue] = useState("");
   const [imageValue, setImageValue] = useState("");
@@ -39,13 +41,34 @@ function CreateTripModal({ setModalOpen }) {
     onClose();
   }
 
+  const handleCreateTrip = () => {
+    handleClose();
+    const newTrip = {
+      user_id: user.id,
+      name: nameValue,
+      image_url: imageValue,
+    };
+    fetch("/trips", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(newTrip),
+    })
+      .then((r) => r.json())
+      .then((newTrip) => handleAddTrip(newTrip));
+    setNameValue("");
+    setImageValue("");
+  };
+
   return (
     <Modal isOpen={isOpen} onClose={handleClose}>
       <ModalOverlay w="full" />
       <ModalContent align="center">
         <ModalHeader>Create new trip</ModalHeader>
         <ModalBody p="2">
-          <form id="create-form">
+          <form>
             <FormControl>
               <FormLabel mb="8px" fontSize="sm">
                 Trip name:
@@ -62,7 +85,7 @@ function CreateTripModal({ setModalOpen }) {
               </FormLabel>
               <Input
                 value={imageValue}
-                name="ImageInput"
+                name="imageInput"
                 onChange={handleChange}
                 placeholder="Please provide an image for this trip"
                 size="sm"
@@ -72,13 +95,7 @@ function CreateTripModal({ setModalOpen }) {
         </ModalBody>
         <ModalCloseButton />
         <ModalFooter>
-          <Button
-            colorScheme="blue"
-            mr={3}
-            onClick={console.log("save button was clicked")}
-            type="submit"
-            form="create-form"
-          >
+          <Button colorScheme="blue" mr={3} onClick={handleCreateTrip}>
             Save
           </Button>
         </ModalFooter>

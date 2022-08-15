@@ -11,10 +11,12 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
 
-export default function LoginCard({ hasAccount, setUser, setHasAccount }) {
+export default function LoginCard({ hasAccount, setHasAccount }) {
+  const { setUser } = useContext(UserContext);
   const history = useHistory();
   const initialFormData = {
     username: "",

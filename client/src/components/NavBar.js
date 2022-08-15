@@ -1,80 +1,60 @@
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from "@chakra-ui/react";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  Button,
+} from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useContext } from "react";
+import { UserContext } from "../context/UserContext";
+import { useHistory } from "react-router-dom";
 
-function NavBar({ user, setUser }) {
-  const [navigation, setNavigation] = useState(null);
-
-  const notLoggedInNavigation = (
-    <Breadcrumb>
-      <BreadcrumbItem>
-        <BreadcrumbLink as={Link} to="/" fontWeight="semibold" fontSize="xl">
-          Sign Up
-        </BreadcrumbLink>
-      </BreadcrumbItem>
-    </Breadcrumb>
-  );
-
-  const loggedInNavigation = (
-    <Breadcrumb separator="|" fontSize="lg">
-      <BreadcrumbItem>
-        <BreadcrumbLink
-          as={Link}
-          to="/discover"
-          fontSize="lg"
-          fontWeight="semibold"
-        >
-          Discover
-        </BreadcrumbLink>
-      </BreadcrumbItem>
-      <BreadcrumbItem>
-        <BreadcrumbLink
-          as={Link}
-          to="/trips"
-          fontSize="lg"
-          fontWeight="semibold"
-        >
-          My Trips
-        </BreadcrumbLink>
-      </BreadcrumbItem>
-    </Breadcrumb>
-  );
-
-  useEffect(() => {
-    user
-      ? setNavigation(loggedInNavigation)
-      : setNavigation(notLoggedInNavigation);
-  }, [user]);
-
-  // function handleLogin() {
-  //   setLoginModalOpen(true);
-  // }
+function NavBar() {
+  const { user, setUser } = useContext(UserContext);
+  const history = useHistory();
 
   function handleLogout() {
     fetch("/logout", {
       method: "DELETE",
-      credentials: "include",
-    }).then((res) => setUser({}));
+    }).then((res) => {
+      setUser({});
+      history.push("/");
+    });
   }
 
-  return <>{navigation}</>;
-  // <Breadcrumb separator="|">
-  //   <BreadcrumbItem>
-  //     <BreadcrumbLink
-  //       as={Link}
-  //       to="/trips"
-  //       fontWeight="semibold"
-  //       fontSize="xl"
-  //     >
-  //       My Trips
-  //     </BreadcrumbLink>
-  //   </BreadcrumbItem>
-  //   <BreadcrumbItem>
-  //     <BreadcrumbLink as={Link} to="/" fontSize="xl" fontWeight="semibold">
-  //       Home
-  //     </BreadcrumbLink>
-  //   </BreadcrumbItem>
-  // </Breadcrumb>
+  return (
+    <>
+      {user ? (
+        <>
+          <Breadcrumb separator="|" fontSize="lg">
+            <BreadcrumbItem>
+              <BreadcrumbLink
+                as={Link}
+                to="/discover"
+                fontSize="lg"
+                fontWeight="semibold"
+              >
+                Discover
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbItem>
+              <BreadcrumbLink
+                as={Link}
+                to="/trips"
+                fontSize="lg"
+                fontWeight="semibold"
+              >
+                My Trips
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+          </Breadcrumb>
+          <Button colorScheme="teal" onClick={handleLogout}>
+            Log out
+          </Button>
+        </>
+      ) : null}
+    </>
+  );
 }
 
 export default NavBar;
