@@ -12,7 +12,7 @@ function Header({ user, setUser }) {
       history.push("/");
     });
   }
-  console.log(user);
+
   return (
     <Flex
       minWidth="max-content"

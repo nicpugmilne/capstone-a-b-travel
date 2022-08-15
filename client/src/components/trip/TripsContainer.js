@@ -13,7 +13,7 @@ function TripsContainer() {
   useEffect(() => {
     fetch(`/trips`, {
       method: "GET",
-      //   credentials: "include",
+      credentials: "include",
     })
       .then((res) => res.json())
       .then((trips) => {
