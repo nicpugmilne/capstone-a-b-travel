@@ -4,101 +4,133 @@ import {
   FormControl,
   FormLabel,
   Textarea,
+  Button,
 } from "@chakra-ui/react";
 import { useContext } from "react";
 import { ActivityFormContext } from "../../context/ActivityFormContext";
 
-function ActivityForm() {
+function ActivityForm({ handleModalClose, itineraryId, handleAddModule }) {
   const {
-    nameValue,
-    setNameValue,
-    startDateValue,
-    setStartDateValue,
-    endDateValue,
-    setEndDateValue,
-    costValue,
-    setCostValue,
-    notesValue,
-    setNotesValue,
+    activityNameValue,
+    setActivityNameValue,
+    activityStartDateValue,
+    setActivityStartDateValue,
+    activityEndDateValue,
+    setActivityEndDateValue,
+    activityCostValue,
+    setActivityCostValue,
+    activityNotesValue,
+    setActivityNotesValue,
   } = useContext(ActivityFormContext);
 
   const handleChange = (event) => {
     switch (event.target.name) {
       case "nameInput":
-        setNameValue(event.target.value);
+        setActivityNameValue(event.target.value);
         break;
       case "startDateInput":
-        setStartDateValue(event.target.value);
+        setActivityStartDateValue(event.target.value);
         break;
       case "endDateInput":
-        setEndDateValue(event.target.value);
+        setActivityEndDateValue(event.target.value);
         break;
       case "costInput":
-        setCostValue(event.target.value);
+        setActivityCostValue(event.target.value);
         break;
       case "notesInput":
-        setNotesValue(event.target.value);
+        setActivityNotesValue(event.target.value);
         break;
     }
   };
 
+  function handleSave() {
+    handleModalClose();
+    const newModule = {
+      module_type_id: 4,
+      itinerary_id: itineraryId,
+      name: activityNameValue,
+      start_datetime: activityStartDateValue,
+      end_datetime: activityEndDateValue,
+      cost: activityCostValue,
+      notes: activityNotesValue,
+    };
+    fetch("/itinerary_modules", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(newModule),
+    })
+      .then((r) => r.json())
+      .then((newModule) => {
+        handleAddModule(newModule);
+        setActivityNameValue("");
+        setActivityStartDateValue("");
+        setActivityEndDateValue("");
+        setActivityCostValue();
+        setActivityNotesValue("");
+      });
+  }
+
   return (
     <ModalBody p="2">
-      <form id="create-form">
-        <FormControl>
-          <FormLabel mb="8px" fontSize="sm">
-            Activity name:
-          </FormLabel>
-          <Input
-            value={nameValue}
-            name="nameInput"
-            onChange={handleChange}
-            placeholder="Paraglide in the Himalayas"
-            size="sm"
-          />
-          <FormLabel my="8px" fontSize="sm">
-            Start date:
-          </FormLabel>
-          <Input
-            value={startDateValue}
-            type="date"
-            name="startDateInput"
-            onChange={handleChange}
-            size="sm"
-          />
-          <FormLabel my="8px" fontSize="sm">
-            End date:
-          </FormLabel>
-          <Input
-            value={endDateValue}
-            type="date"
-            name="endDateInput"
-            onChange={handleChange}
-            size="sm"
-          />
-          <FormLabel my="8px" fontSize="sm">
-            Cost:
-          </FormLabel>
-          <Input
-            value={costValue}
-            name="costInput"
-            onChange={handleChange}
-            placeholder="Enter cost in your currency"
-            size="sm"
-            type="number"
-          />
-          <FormLabel my="8px" fontSize="sm">
-            Notes:
-          </FormLabel>
-          <Textarea
-            value={notesValue}
-            name="notesInput"
-            onChange={handleChange}
-            placeholder="Enter notes you want to save"
-            size="sm"
-          />
-        </FormControl>
-      </form>
+      <FormControl>
+        <FormLabel mb="8px" fontSize="sm">
+          Activity name:
+        </FormLabel>
+        <Input
+          value={activityNameValue}
+          name="nameInput"
+          onChange={handleChange}
+          placeholder="Paraglide in the Himalayas"
+          size="sm"
+        />
+        <FormLabel my="8px" fontSize="sm">
+          Start date:
+        </FormLabel>
+        <Input
+          value={activityStartDateValue}
+          type="date"
+          name="startDateInput"
+          onChange={handleChange}
+          size="sm"
+        />
+        <FormLabel my="8px" fontSize="sm">
+          End date:
+        </FormLabel>
+        <Input
+          value={activityEndDateValue}
+          type="date"
+          name="endDateInput"
+          onChange={handleChange}
+          size="sm"
+        />
+        <FormLabel my="8px" fontSize="sm">
+          Cost:
+        </FormLabel>
+        <Input
+          value={activityCostValue}
+          name="costInput"
+          onChange={handleChange}
+          placeholder="Enter cost in your currency"
+          size="sm"
+          type="number"
+        />
+        <FormLabel my="8px" fontSize="sm">
+          Notes:
+        </FormLabel>
+        <Textarea
+          value={activityNotesValue}
+          name="notesInput"
+          onChange={handleChange}
+          placeholder="Enter notes you want to save"
+          size="sm"
+        />
+      </FormControl>
+      <Button colorScheme="blue" mt={5} onClick={handleSave}>
+        Save
+      </Button>
     </ModalBody>
   );
 }

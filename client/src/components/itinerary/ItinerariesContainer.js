@@ -1,14 +1,15 @@
+import { ActivityFormProvider } from "../../context/ActivityFormContext";
+import { HotelFormProvider } from "../../context/HotelFormContext";
+import { FlightFormProvider } from "../../context/FlightFormContext";
+import { GroundTransportationFormProvider } from "../../context/GroundTransportationFormContext";
 import { Box, SimpleGrid } from "@chakra-ui/react";
 import ItineraryCard from "./ItineraryCard";
 import ItineraryContainerHeader from "./ItineraryContainerHeader";
-import CreateModuleModal from "./CreateModuleModal";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { ActivityFormProvider } from "../../context/ActivityFormContext";
 
 function ItinerariesContainer() {
   const { trip_id } = useParams();
-  const [isModalOpen, setModalOpen] = useState(false);
   const [itineraries, setItineraries] = useState([]);
   const [itineraryCount, setItineraryCount] = useState(null);
   const [tripName, setTripName] = useState("");
@@ -59,7 +60,6 @@ function ItinerariesContainer() {
       <ItineraryCard
         key={itinerary.id}
         itinerary={itinerary}
-        setModalOpen={setModalOpen}
         handleDeleteItinerary={handleDeleteItinerary}
       ></ItineraryCard>
     );
@@ -79,12 +79,15 @@ function ItinerariesContainer() {
         spacingX="20px"
         alignItems="center"
       >
-        {isModalOpen ? (
-          <ActivityFormProvider>
-            <CreateModuleModal setModalOpen={setModalOpen} />
-          </ActivityFormProvider>
-        ) : null}
-        {itineraryCards}
+        <ActivityFormProvider>
+          <HotelFormProvider>
+            <FlightFormProvider>
+              <GroundTransportationFormProvider>
+                {itineraryCards}
+              </GroundTransportationFormProvider>
+            </FlightFormProvider>
+          </HotelFormProvider>
+        </ActivityFormProvider>
       </SimpleGrid>
     </Box>
   );

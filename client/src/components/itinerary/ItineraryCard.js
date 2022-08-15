@@ -8,16 +8,20 @@ import {
   useColorModeValue,
   Flex,
   Spacer,
-  Square,
-  Button,
-  handleClick,
 } from "@chakra-ui/react";
 import { MdOutlineStarOutline } from "react-icons/md";
 import { MdModeEditOutline } from "react-icons/md";
 import { MdOutlineDeleteForever } from "react-icons/md";
 import ItineraryModuleContainer from "./ItineraryModuleContainer";
+import { useState, useEffect } from "react";
 
 function ItineraryCard({ itinerary, setModalOpen, handleDeleteItinerary }) {
+  const [modules, setModules] = useState([]);
+
+  useEffect(() => {
+    setModules(itinerary.itinerary_modules);
+  }, []);
+
   function handleFavorite() {
     alert("User clicked favorite button");
   }
@@ -33,8 +37,8 @@ function ItineraryCard({ itinerary, setModalOpen, handleDeleteItinerary }) {
     }).then(handleDeleteItinerary(itinerary.id));
   }
 
-  function handleAddModule() {
-    setModalOpen(true);
+  function handleAddModule(newModule) {
+    setModules([...modules, newModule]);
   }
 
   return (
@@ -67,29 +71,12 @@ function ItineraryCard({ itinerary, setModalOpen, handleDeleteItinerary }) {
               onClick={handleDelete}
             ></Icon>
           </Flex>
-          {itinerary.itinerary_modules.length !== 0 ? (
-            <ItineraryModuleContainer
-              setModalOpen={setModalOpen}
-              modules={itinerary.itinerary_modules}
-            ></ItineraryModuleContainer>
-          ) : null}
-          <Button
-            my={8}
-            w={"full"}
-            bg={"green.300"}
-            color={"white"}
-            rounded={"xl"}
-            boxShadow={"0 5px 20px 0px rgb(72 187 120 / 43%)"}
-            _hover={{
-              bg: "green.400",
-            }}
-            _focus={{
-              bg: "green.400",
-            }}
-            onClick={handleAddModule}
-          >
-            Add to trip
-          </Button>
+          <ItineraryModuleContainer
+            setModalOpen={setModalOpen}
+            modules={modules}
+            itineraryId={itinerary.id}
+            handleAddModule={handleAddModule}
+          ></ItineraryModuleContainer>
           <Box>
             <Stack align={"center"} justify={"center"} mb="10">
               <Text fontSize={"lg"}>Summary:</Text>
