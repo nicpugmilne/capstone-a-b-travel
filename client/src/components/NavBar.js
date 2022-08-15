@@ -8,8 +8,8 @@ function NavBar({ user, setUser }) {
   const notLoggedInNavigation = (
     <Breadcrumb>
       <BreadcrumbItem>
-        <BreadcrumbLink as={Link} to="/new" fontWeight="semibold" fontSize="xl">
-          Welcome
+        <BreadcrumbLink as={Link} to="/" fontWeight="semibold" fontSize="xl">
+          Sign Up
         </BreadcrumbLink>
       </BreadcrumbItem>
     </Breadcrumb>
@@ -18,8 +18,13 @@ function NavBar({ user, setUser }) {
   const loggedInNavigation = (
     <Breadcrumb separator="|" fontSize="lg">
       <BreadcrumbItem>
-        <BreadcrumbLink as={Link} to="/" fontSize="lg" fontWeight="semibold">
-          Home
+        <BreadcrumbLink
+          as={Link}
+          to="/discover"
+          fontSize="lg"
+          fontWeight="semibold"
+        >
+          Discover
         </BreadcrumbLink>
       </BreadcrumbItem>
       <BreadcrumbItem>

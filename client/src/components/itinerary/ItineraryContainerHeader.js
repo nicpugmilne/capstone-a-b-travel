@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 function ItineraryContainerHeader({ tripName }) {
   const history = useHistory();
   function goBack() {
-    history.push(`/`);
+    history.push(`/trips`);
   }
 
   function handleCreate() {

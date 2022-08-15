@@ -1,9 +1,9 @@
 import { Switch, Route } from "react-router-dom";
 import Header from "./components/Header";
-import HomeContainer from "./components/HomeContainer";
+import DashboardContainer from "./components/DashboardContainer";
 import ItinerariesContainer from "./components/itinerary/ItinerariesContainer";
 import TripsContainer from "./components/trip/TripsContainer";
-import UnknownUserContainer from "./components/UnknownUserContainer";
+import HomeContainer from "./components/HomeContainer";
 import { useState, useEffect } from "react";
 
 function App() {
@@ -26,13 +26,10 @@ function App() {
       <Header user={user} setUser={setUser}></Header>
       <Switch>
         <Route exact path="/">
-          <UnknownUserContainer
-            setUser={setUser}
-            user={user}
-          ></UnknownUserContainer>
+          <HomeContainer setUser={setUser} user={user}></HomeContainer>
         </Route>
-        <Route exact path="/home">
-          <HomeContainer setUser={setUser} user={user} />
+        <Route exact path="/discover">
+          <DashboardContainer setUser={setUser} user={user} />
         </Route>
         <Route exact path="/trips">
           <TripsContainer></TripsContainer>
@@ -42,19 +39,6 @@ function App() {
         </Route>
       </Switch>
     </>
-
-    // <BrowserRouter>
-    //   <div className="App">
-    //     <Switch>
-    //       <Route path="/testing">
-    //         <h1>Test Route</h1>
-    //       </Route>
-    //       <Route path="/">
-    //         <h1>Page Count: {count}</h1>
-    //       </Route>
-    //     </Switch>
-    //   </div>
-    // </BrowserRouter>
   );
 }
 

@@ -14,7 +14,7 @@ import {
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 
-export default function LoginCard({ setUser, setHasAccount }) {
+export default function LoginCard({ hasAccount, setUser, setHasAccount }) {
   const history = useHistory();
   const initialFormData = {
     username: "",
@@ -35,7 +35,8 @@ export default function LoginCard({ setUser, setHasAccount }) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ formData }),
+      credentials: "include",
+      body: JSON.stringify(formData),
     })
       .then((r) => r.json())
       .then((data) => {
@@ -102,7 +103,10 @@ export default function LoginCard({ setUser, setHasAccount }) {
             <Stack pt={6}>
               <Text align={"center"}>
                 Not a user yet?{" "}
-                <Link color={"blue.400"} onClick={() => setHasAccount(false)}>
+                <Link
+                  color={"blue.400"}
+                  onClick={() => setHasAccount(!hasAccount)}
+                >
                   Sign Up
                 </Link>
               </Text>

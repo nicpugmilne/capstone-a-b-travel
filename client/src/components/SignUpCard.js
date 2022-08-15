@@ -14,7 +14,7 @@ import {
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 
-export default function SignupCard({ setUser, setHasAccount }) {
+export default function SignupCard({ hasAccount, setUser, setHasAccount }) {
   const initialFormData = {
     username: "",
     password: "",
@@ -123,7 +123,10 @@ export default function SignupCard({ setUser, setHasAccount }) {
             <Stack pt={6}>
               <Text align={"center"}>
                 Already a user?{" "}
-                <Link color={"blue.400"} onClick={() => setHasAccount(true)}>
+                <Link
+                  color={"blue.400"}
+                  onClick={() => setHasAccount(!hasAccount)}
+                >
                   Login
                 </Link>
               </Text>
