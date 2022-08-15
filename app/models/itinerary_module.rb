@@ -6,6 +6,5 @@ class ItineraryModule < ApplicationRecord
   validates :name, presence: true
   validates :start_datetime, presence: true
   validates :end_datetime, presence: true
-  validates :duration, presence: true
   validates :cost, presence: true
 end
