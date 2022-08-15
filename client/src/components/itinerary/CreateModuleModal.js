@@ -68,18 +68,21 @@ function CreateModuleModal({ setModalOpen, itineraryId, handleAddModule }) {
               <HotelForm
                 handleModalClose={handleClose}
                 itineraryId={itineraryId}
+                handleAddModule={handleAddModule}
               />
             </TabPanel>
             <TabPanel>
               <GroundTransportationForm
                 handleModalClose={handleClose}
                 itineraryId={itineraryId}
+                handleAddModule={handleAddModule}
               />
             </TabPanel>
             <TabPanel>
               <ActivityForm
                 handleModalClose={handleClose}
                 itineraryId={itineraryId}
+                handleAddModule={handleAddModule}
               />
             </TabPanel>
           </TabPanels>

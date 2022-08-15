@@ -9,7 +9,7 @@ import {
 import { useContext } from "react";
 import { ActivityFormContext } from "../../context/ActivityFormContext";
 
-function ActivityForm({ handleModalClose }) {
+function ActivityForm({ handleModalClose, itineraryId, handleAddModule }) {
   const {
     activityNameValue,
     setActivityNameValue,
@@ -45,6 +45,32 @@ function ActivityForm({ handleModalClose }) {
 
   function handleSave() {
     handleModalClose();
+    const newModule = {
+      module_type_id: 4,
+      itinerary_id: itineraryId,
+      name: activityNameValue,
+      start_datetime: activityStartDateValue,
+      end_datetime: activityEndDateValue,
+      cost: activityCostValue,
+      notes: activityNotesValue,
+    };
+    fetch("/itinerary_modules", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(newModule),
+    })
+      .then((r) => r.json())
+      .then((newModule) => {
+        handleAddModule(newModule);
+        setActivityNameValue("");
+        setActivityStartDateValue("");
+        setActivityEndDateValue("");
+        setActivityCostValue();
+        setActivityNotesValue("");
+      });
   }
 
   return (

@@ -9,7 +9,7 @@ import {
 import { useContext } from "react";
 import { HotelFormContext } from "../../context/HotelFormContext";
 
-function HotelForm({ handleModalClose }) {
+function HotelForm({ handleModalClose, itineraryId, handleAddModule }) {
   const {
     hotelNameValue,
     setHotelNameValue,
@@ -44,6 +44,32 @@ function HotelForm({ handleModalClose }) {
   };
   function handleSave() {
     handleModalClose();
+    const newModule = {
+      module_type_id: 2,
+      itinerary_id: itineraryId,
+      name: hotelNameValue,
+      start_datetime: hotelStartDateValue,
+      end_datetime: hotelEndDateValue,
+      cost: hotelCostValue,
+      notes: hotelNotesValue,
+    };
+    fetch("/itinerary_modules", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(newModule),
+    })
+      .then((r) => r.json())
+      .then((newModule) => {
+        handleAddModule(newModule);
+        setHotelNameValue("");
+        setHotelStartDateValue("");
+        setHotelEndDateValue("");
+        setHotelCostValue();
+        setHotelNotesValue("");
+      });
   }
 
   return (

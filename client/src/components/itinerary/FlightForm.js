@@ -74,8 +74,8 @@ function FlightForm({ handleModalClose, itineraryId, handleAddModule }) {
         setFlightNameValue("");
         setFlightStartDateValue("");
         setFlightEndDateValue("");
-        setFlightDurationValue("");
-        setFlightCostValue("");
+        setFlightDurationValue();
+        setFlightCostValue();
         setFlightNotesValue("");
       });
   }

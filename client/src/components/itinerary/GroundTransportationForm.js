@@ -9,7 +9,11 @@ import {
 import { useContext } from "react";
 import { GroundTransportationFormContext } from "../../context/GroundTransportationFormContext";
 
-function GroundTransportationForm({ handleModalClose }) {
+function GroundTransportationForm({
+  handleModalClose,
+  itineraryId,
+  handleAddModule,
+}) {
   const {
     groundTransportationNameValue,
     setGroundTransportationNameValue,
@@ -50,6 +54,34 @@ function GroundTransportationForm({ handleModalClose }) {
 
   function handleSave() {
     handleModalClose();
+    const newModule = {
+      module_type_id: 3,
+      itinerary_id: itineraryId,
+      name: groundTransportationNameValue,
+      start_datetime: groundTransportationStartDateValue,
+      end_datetime: groundTransportationEndDateValue,
+      duration: groundTransportationDurationValue,
+      cost: groundTransportationCostValue,
+      notes: groundTransportationNotesValue,
+    };
+    fetch("/itinerary_modules", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(newModule),
+    })
+      .then((r) => r.json())
+      .then((newModule) => {
+        handleAddModule(newModule);
+        setGroundTransportationNameValue("");
+        setGroundTransportationStartDateValue("");
+        setGroundTransportationEndDateValue("");
+        setGroundTransportationDurationValue();
+        setGroundTransportationCostValue();
+        setGroundTransportationNotesValue("");
+      });
   }
 
   return (
