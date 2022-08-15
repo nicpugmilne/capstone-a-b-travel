@@ -9,13 +9,15 @@ import {
   Flex,
   Spacer,
   Square,
+  Button,
+  handleClick,
 } from "@chakra-ui/react";
 import { MdOutlineStarOutline } from "react-icons/md";
 import { MdModeEditOutline } from "react-icons/md";
 import { MdOutlineDeleteForever } from "react-icons/md";
 import ItineraryModuleContainer from "./ItineraryModuleContainer";
 
-function ItineraryCard({ itinerary, setModalOpen }) {
+function ItineraryCard({ itinerary, setModalOpen, handleDeleteItinerary }) {
   function handleFavorite() {
     alert("User clicked favorite button");
   }
@@ -25,7 +27,14 @@ function ItineraryCard({ itinerary, setModalOpen }) {
   }
 
   function handleDelete() {
-    alert("User clicked delete button");
+    fetch(`/itineraries/${itinerary.id}`, {
+      method: "DELETE",
+      credentials: "include",
+    }).then(handleDeleteItinerary(itinerary.id));
+  }
+
+  function handleAddModule() {
+    setModalOpen(true);
   }
 
   return (
@@ -58,10 +67,29 @@ function ItineraryCard({ itinerary, setModalOpen }) {
               onClick={handleDelete}
             ></Icon>
           </Flex>
-          <ItineraryModuleContainer
-            setModalOpen={setModalOpen}
-            modules={itinerary.itinerary_modules}
-          ></ItineraryModuleContainer>
+          {itinerary.itinerary_modules.length !== 0 ? (
+            <ItineraryModuleContainer
+              setModalOpen={setModalOpen}
+              modules={itinerary.itinerary_modules}
+            ></ItineraryModuleContainer>
+          ) : null}
+          <Button
+            my={8}
+            w={"full"}
+            bg={"green.300"}
+            color={"white"}
+            rounded={"xl"}
+            boxShadow={"0 5px 20px 0px rgb(72 187 120 / 43%)"}
+            _hover={{
+              bg: "green.400",
+            }}
+            _focus={{
+              bg: "green.400",
+            }}
+            onClick={handleAddModule}
+          >
+            Add to trip
+          </Button>
           <Box>
             <Stack align={"center"} justify={"center"} mb="10">
               <Text fontSize={"lg"}>Summary:</Text>

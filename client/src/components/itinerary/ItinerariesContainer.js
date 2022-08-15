@@ -19,7 +19,7 @@ function ItinerariesContainer() {
     })
       .then((res) => res.json())
       .then((data) => establishTripData(data));
-  }, [trip_id]);
+  }, []);
 
   function establishTripData(data) {
     setItineraries(data);
@@ -27,8 +27,31 @@ function ItinerariesContainer() {
     setItineraryCount(data.length);
   }
 
-  function handleAddItinerary(newItinerary) {
-    setItineraries([...itineraries, newItinerary]);
+  function handleDeleteItinerary(deletedItineraryId) {
+    const updatedItineraryList = itineraries.filter(
+      (itinerary) => itinerary.id !== deletedItineraryId
+    );
+    setItineraries(updatedItineraryList);
+  }
+
+  function handleCreateItinerary() {
+    const newItinerary = {
+      trip_id: trip_id,
+      name: `Itinerary ${itineraryCount + 1}`,
+      is_favorite: false,
+      is_published: false,
+    };
+    fetch("/itineraries", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(newItinerary),
+    })
+      .then((r) => r.json())
+      .then((newItinerary) => setItineraries([...itineraries, newItinerary]));
+    setItineraryCount(itineraryCount + 1);
   }
 
   const itineraryCards = itineraries.map((itinerary) => {
@@ -37,6 +60,7 @@ function ItinerariesContainer() {
         key={itinerary.id}
         itinerary={itinerary}
         setModalOpen={setModalOpen}
+        handleDeleteItinerary={handleDeleteItinerary}
       ></ItineraryCard>
     );
   });
@@ -48,7 +72,7 @@ function ItinerariesContainer() {
         tripId={trip_id}
         itineraryCount={itineraryCount}
         setItineraryCount={setItineraryCount}
-        handleAddItinerary={handleAddItinerary}
+        handleCreateItinerary={handleCreateItinerary}
       ></ItineraryContainerHeader>
       <SimpleGrid
         columns={{ sm: 1, md: 2, lg: 3 }}

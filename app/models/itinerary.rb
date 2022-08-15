@@ -1,6 +1,6 @@
 class Itinerary < ApplicationRecord
   belongs_to :trip
-  has_many :itinerary_modules
+  has_many :itinerary_modules, dependent: :destroy
   validates :name, presence: true
   validates :trip_id, presence: true
 
