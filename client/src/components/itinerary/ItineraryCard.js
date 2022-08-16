@@ -8,15 +8,26 @@ import {
   useColorModeValue,
   Flex,
   Spacer,
+  Input,
+  InputGroup,
+  InputRightElement,
 } from "@chakra-ui/react";
-import { MdOutlineStarOutline } from "react-icons/md";
+// import { MdOutlineStarOutline } from "react-icons/md";
+import { MdCheck } from "react-icons/md";
 import { MdModeEditOutline } from "react-icons/md";
 import { MdOutlineDeleteForever } from "react-icons/md";
 import ItineraryModuleContainer from "./ItineraryModuleContainer";
 import { useState, useEffect } from "react";
 
-function ItineraryCard({ itinerary, setModalOpen, handleDeleteItinerary }) {
+function ItineraryCard({
+  itinerary,
+  setModalOpen,
+  handleDeleteItinerary,
+  updateItineraryName,
+}) {
   const [modules, setModules] = useState([]);
+  const [isEditing, setIsEditing] = useState(false);
+  const [itineraryName, setItineraryNameValue] = useState("");
 
   useEffect(() => {
     setModules(itinerary.itinerary_modules);
@@ -26,8 +37,8 @@ function ItineraryCard({ itinerary, setModalOpen, handleDeleteItinerary }) {
     alert("User clicked favorite button");
   }
 
-  function handleEdit() {
-    alert("User clicked edit button");
+  function handleChange(e) {
+    setItineraryNameValue(e.target.value);
   }
 
   function handleDelete() {
@@ -48,6 +59,21 @@ function ItineraryCard({ itinerary, setModalOpen, handleDeleteItinerary }) {
     setModules(updatedModules);
   }
 
+  function handleItineraryNameUpdate() {
+    const updatedItinerary = { name: itineraryName };
+    fetch(`/itineraries/${itinerary.id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(updatedItinerary),
+    })
+      .then((r) => r.json())
+      .then((itinerary) => updateItineraryName(itinerary));
+    setIsEditing(!isEditing);
+  }
+
   return (
     <GridItem className="problemChild">
       <Center py={6}>
@@ -62,21 +88,40 @@ function ItineraryCard({ itinerary, setModalOpen, handleDeleteItinerary }) {
           className="secondProblem"
         >
           <Flex align={"center"} m="5">
-            <Text fontSize={"xl"} fontWeight={500} p={2} px={3}>
-              {itinerary.name}
-            </Text>
-            {/* <Icon
-              as={MdOutlineStarOutline}
-              ml="2"
-              onClick={handleFavorite}
-            ></Icon> */}
-            <Spacer></Spacer>
-            <Icon as={MdModeEditOutline} onClick={handleEdit}></Icon>
-            <Icon
-              as={MdOutlineDeleteForever}
-              ml="5"
-              onClick={handleDelete}
-            ></Icon>
+            {isEditing ? (
+              <InputGroup>
+                <Input
+                  placeholder="Set new trip name"
+                  value={itineraryName}
+                  onChange={handleChange}
+                />
+                <InputRightElement
+                  children={
+                    <Icon
+                      as={MdCheck}
+                      color="green.500"
+                      onClick={handleItineraryNameUpdate}
+                    />
+                  }
+                />
+              </InputGroup>
+            ) : (
+              <>
+                <Text fontSize={"xl"} fontWeight={500} p={2} px={3}>
+                  {itinerary.name}
+                </Text>
+                <Spacer></Spacer>
+                <Icon
+                  as={MdModeEditOutline}
+                  onClick={() => setIsEditing(!isEditing)}
+                ></Icon>
+                <Icon
+                  as={MdOutlineDeleteForever}
+                  ml="5"
+                  onClick={handleDelete}
+                ></Icon>
+              </>
+            )}
           </Flex>
           <ItineraryModuleContainer
             setModalOpen={setModalOpen}
