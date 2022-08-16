@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Box,
   Heading,
@@ -10,6 +11,15 @@ import {
   Icon,
   InputGroup,
   InputRightElement,
+  Popover,
+  PopoverTrigger,
+  Portal,
+  PopoverContent,
+  PopoverArrow,
+  PopoverCloseButton,
+  PopoverBody,
+  Text,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { MdCheck } from "react-icons/md";
@@ -26,11 +36,12 @@ function ItineraryContainerHeader({
   const history = useHistory();
   const [isEditing, setIsEditing] = useState(false);
   const [name, setTripNameValue] = useState("");
+  const { onOpen, onClose, isOpen } = useDisclosure();
 
   function handleChange(e) {
     setTripNameValue(e.target.value);
   }
-
+  //Maybe change the trip edit from just the name to also the image https://v1.chakra-ui.com/docs/components/overlay/popover#trapping-focus-within-popover
   function handleTripNameUpdate() {
     const updatedTrip = { name: name };
     fetch(`/trips/${tripId}`, {
@@ -44,6 +55,16 @@ function ItineraryContainerHeader({
       .then((r) => r.json())
       .then((trip) => updateTripName(trip.name));
     setIsEditing(!isEditing);
+  }
+
+  function handleDeleteTrip() {
+    onClose();
+    fetch(`/trips/${tripId}`, {
+      method: "DELETE",
+      credentials: "include",
+    }).then(() => {
+      history.push(`/trips`);
+    });
   }
 
   return (
@@ -81,10 +102,29 @@ function ItineraryContainerHeader({
                   variant="outline"
                   onClick={() => setIsEditing(!isEditing)}
                 />
-                <IconButton
-                  icon={<MdOutlineDeleteForever />}
-                  variant="outline"
-                />
+                <Popover isOpen={isOpen} onOpen={onOpen} onClose={onClose}>
+                  <PopoverTrigger>
+                    <IconButton
+                      icon={<MdOutlineDeleteForever />}
+                      variant="outline"
+                      onClick={onOpen}
+                    />
+                  </PopoverTrigger>
+                  <Portal>
+                    <PopoverContent>
+                      <PopoverArrow />
+                      <PopoverCloseButton onClick={onClose} />
+                      <PopoverBody>
+                        <Box>
+                          <Text>
+                            Are you sure you want to delete this trip?
+                          </Text>
+                          <Button onClick={handleDeleteTrip}>Delete</Button>
+                        </Box>
+                      </PopoverBody>
+                    </PopoverContent>
+                  </Portal>
+                </Popover>
               </ButtonGroup>
             </>
           )}

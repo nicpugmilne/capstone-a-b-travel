@@ -4,7 +4,7 @@ class TripsController < ApplicationController
     end
 
     def show
-        trip = Trip.find_by!(params[:id])
+        trip = find_trip
         render json: trip
     end
 
@@ -26,9 +26,20 @@ class TripsController < ApplicationController
     end
 
     def update
-        trip = Trip.find_by!(id: params[:id])
+        trip = find_trip
         trip.update!(params.permit(:name))
         render json: trip
+    end
+
+    def destroy
+        trip = find_trip
+        trip.destroy
+        head :no_content
+    end
+
+    private
+    def find_trip
+        Trip.find_by!(id: params[:id])
     end
 
 end
