@@ -51,7 +51,7 @@ function ItinerariesContainer() {
       body: JSON.stringify(newItinerary),
     })
       .then((r) => r.json())
-      .then((newItinerary) => setItineraries([...itineraries, newItinerary]));
+      .then((newItinerary) => setItineraries([newItinerary, ...itineraries]));
     setItineraryCount(itineraryCount + 1);
   }
 

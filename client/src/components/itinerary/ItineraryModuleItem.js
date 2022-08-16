@@ -1,10 +1,10 @@
-import { Tr, Td, Icon } from "@chakra-ui/react";
+import { Tr, Td, Icon, Box, Button, Text } from "@chakra-ui/react";
 import { MdFlight } from "react-icons/md";
 import { MdHotel } from "react-icons/md";
 import { MdDirectionsCar } from "react-icons/md";
 import { MdLocalActivity } from "react-icons/md";
 
-function ItineraryModuleItem({ module }) {
+function ItineraryModuleItem({ module, handleRemoveModuleItem }) {
   let icon;
   switch (module.module_type.id) {
     case 1:
@@ -21,18 +21,30 @@ function ItineraryModuleItem({ module }) {
       break;
   }
 
+  function handleDelete() {
+    fetch(`/itinerary_modules/${module.id}`, {
+      method: "DELETE",
+      credentials: "include",
+    }).then(handleRemoveModuleItem(module.id));
+  }
+
   return (
-    <Tr>
-      <Td>
-        <Icon as={icon} />
-      </Td>
-      <Td>
-        {module.start_date} - {module.end_date}
-      </Td>
-      <Td>{module.name}</Td>
-      <Td>{module.duration}</Td>
-      <Td>${module.cost}</Td>
-    </Tr>
+    <>
+      <Tr>
+        <Td>
+          <Icon as={icon} />
+        </Td>
+        <Td>
+          {module.start_date} - {module.end_date}
+        </Td>
+        <Td>{module.name}</Td>
+        <Td>{module.duration}</Td>
+        <Td>${module.cost}</Td>
+        <Td onClick={handleDelete}>
+          <Button size="xs">Delete</Button>
+        </Td>
+      </Tr>
+    </>
   );
 }
 
