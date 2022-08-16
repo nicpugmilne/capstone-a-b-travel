@@ -12,13 +12,19 @@ import ItineraryModuleItem from "./ItineraryModuleItem";
 import { useState } from "react";
 import CreateModuleModal from "./CreateModuleModal";
 
-function ItineraryModuleContainer({ modules, itineraryId, handleAddModule }) {
+function ItineraryModuleContainer({
+  modules,
+  itineraryId,
+  handleAddModule,
+  handleRemoveModuleItem,
+}) {
   const [isModalOpen, setModalOpen] = useState(false);
   const moduleItems = modules.map((module) => {
     return (
       <ItineraryModuleItem
         key={module.id}
         module={module}
+        handleRemoveModuleItem={handleRemoveModuleItem}
       ></ItineraryModuleItem>
     );
   });

@@ -41,6 +41,13 @@ function ItineraryCard({ itinerary, setModalOpen, handleDeleteItinerary }) {
     setModules([...modules, newModule]);
   }
 
+  function handleRemoveModuleItem(deletedItemId) {
+    const updatedModules = modules.filter(
+      (module) => module.id !== deletedItemId
+    );
+    setModules(updatedModules);
+  }
+
   return (
     <GridItem className="problemChild">
       <Center py={6}>
@@ -58,11 +65,11 @@ function ItineraryCard({ itinerary, setModalOpen, handleDeleteItinerary }) {
             <Text fontSize={"xl"} fontWeight={500} p={2} px={3}>
               {itinerary.name}
             </Text>
-            <Icon
+            {/* <Icon
               as={MdOutlineStarOutline}
               ml="2"
               onClick={handleFavorite}
-            ></Icon>
+            ></Icon> */}
             <Spacer></Spacer>
             <Icon as={MdModeEditOutline} onClick={handleEdit}></Icon>
             <Icon
@@ -76,6 +83,7 @@ function ItineraryCard({ itinerary, setModalOpen, handleDeleteItinerary }) {
             modules={modules}
             itineraryId={itinerary.id}
             handleAddModule={handleAddModule}
+            handleRemoveModuleItem={handleRemoveModuleItem}
           ></ItineraryModuleContainer>
           <Box>
             <Stack align={"center"} justify={"center"} mb="10">
