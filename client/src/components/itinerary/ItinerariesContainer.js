@@ -55,6 +55,10 @@ function ItinerariesContainer() {
     setItineraryCount(itineraryCount + 1);
   }
 
+  function updateTripName(newName) {
+    setTripName(newName);
+  }
+
   const itineraryCards = itineraries.map((itinerary) => {
     return (
       <ItineraryCard
@@ -73,6 +77,7 @@ function ItinerariesContainer() {
         itineraryCount={itineraryCount}
         setItineraryCount={setItineraryCount}
         handleCreateItinerary={handleCreateItinerary}
+        updateTripName={updateTripName}
       ></ItineraryContainerHeader>
       <SimpleGrid
         columns={{ sm: 1, md: 2, lg: 3 }}

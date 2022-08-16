@@ -4,7 +4,7 @@ class TripsController < ApplicationController
     end
 
     def show
-        trip = Trip.find(params[:id])
+        trip = Trip.find_by!(params[:id])
         render json: trip
     end
 
@@ -23,6 +23,12 @@ class TripsController < ApplicationController
     def create
         trip = Trip.create!(params.permit(:name, :image_url, :user_id))
         render json: trip, status: :created
+    end
+
+    def update
+        trip = Trip.find_by!(id: params[:id])
+        trip.update!(params.permit(:name))
+        render json: trip
     end
 
 end
