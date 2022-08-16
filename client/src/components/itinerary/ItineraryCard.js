@@ -3,11 +3,11 @@ import {
   Box,
   Center,
   Text,
-  Stack,
   Icon,
   useColorModeValue,
   Flex,
   Spacer,
+  Stack,
   Input,
   InputGroup,
   InputRightElement,
@@ -18,12 +18,13 @@ import { MdModeEditOutline } from "react-icons/md";
 import { MdOutlineDeleteForever } from "react-icons/md";
 import ItineraryModuleContainer from "./ItineraryModuleContainer";
 import { useState, useEffect } from "react";
+import ItinerarySummary from "./ItinerarySummary";
 
 function ItineraryCard({
   itinerary,
   setModalOpen,
   handleDeleteItinerary,
-  updateItineraryName,
+  updateItineraryCard,
 }) {
   const [modules, setModules] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
@@ -33,11 +34,7 @@ function ItineraryCard({
     setModules(itinerary.itinerary_modules);
   }, []);
 
-  function handleFavorite() {
-    alert("User clicked favorite button");
-  }
-
-  function handleChange(e) {
+  function handleNameInputChange(e) {
     setItineraryNameValue(e.target.value);
   }
 
@@ -50,6 +47,11 @@ function ItineraryCard({
 
   function handleAddModule(newModule) {
     setModules([...modules, newModule]);
+    //update the total_cost and travel_time key value pairs
+    let updatedItinerary = itinerary;
+    updatedItinerary.total_cost = itinerary.total_cost + newModule.cost;
+    updatedItinerary.travel_time = itinerary.travel_time + newModule.duration;
+    updateItineraryCard(updatedItinerary);
   }
 
   function handleRemoveModuleItem(deletedItemId) {
@@ -70,7 +72,7 @@ function ItineraryCard({
       body: JSON.stringify(updatedItinerary),
     })
       .then((r) => r.json())
-      .then((itinerary) => updateItineraryName(itinerary));
+      .then((itinerary) => updateItineraryCard(itinerary));
     setIsEditing(!isEditing);
   }
 
@@ -93,7 +95,7 @@ function ItineraryCard({
                 <Input
                   placeholder="Set new trip name"
                   value={itineraryName}
-                  onChange={handleChange}
+                  onChange={handleNameInputChange}
                 />
                 <InputRightElement
                   children={
@@ -131,19 +133,7 @@ function ItineraryCard({
             handleRemoveModuleItem={handleRemoveModuleItem}
           ></ItineraryModuleContainer>
           <Box>
-            <Stack align={"center"} justify={"center"} mb="10">
-              <Text fontSize={"lg"}>Summary:</Text>
-              <Text fontSize={"sm"} fontWeight={500}>
-                Total Cost: ${itinerary.total_cost}
-              </Text>
-              <Text fontSize={"sm"} fontWeight={500}>
-                Dates: {itinerary.itinerary_start_date} -{" "}
-                {itinerary.itinerary_end_date}
-              </Text>
-              <Text fontSize={"sm"} fontWeight={500}>
-                Travel time: {(itinerary.travel_time / 60).toPrecision(3)} hrs
-              </Text>
-            </Stack>
+            <ItinerarySummary itinerary={itinerary}></ItinerarySummary>
           </Box>
         </Box>
       </Center>

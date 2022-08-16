@@ -59,7 +59,7 @@ function ItinerariesContainer() {
     setTripName(newName);
   }
 
-  function updateItineraryName(updatedItinerary) {
+  function updateItineraryCard(updatedItinerary) {
     const updatedItinerariesList = itineraries.map((itinerary) => {
       if (itinerary.id === updatedItinerary.id) {
         return updatedItinerary;
@@ -76,7 +76,7 @@ function ItinerariesContainer() {
         key={itinerary.id}
         itinerary={itinerary}
         handleDeleteItinerary={handleDeleteItinerary}
-        updateItineraryName={updateItineraryName}
+        updateItineraryCard={updateItineraryCard}
       ></ItineraryCard>
     );
   });
