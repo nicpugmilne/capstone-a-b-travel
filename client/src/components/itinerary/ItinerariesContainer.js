@@ -59,12 +59,24 @@ function ItinerariesContainer() {
     setTripName(newName);
   }
 
+  function updateItineraryName(updatedItinerary) {
+    const updatedItinerariesList = itineraries.map((itinerary) => {
+      if (itinerary.id === updatedItinerary.id) {
+        return updatedItinerary;
+      } else {
+        return itinerary;
+      }
+    });
+    setItineraries(updatedItinerariesList);
+  }
+
   const itineraryCards = itineraries.map((itinerary) => {
     return (
       <ItineraryCard
         key={itinerary.id}
         itinerary={itinerary}
         handleDeleteItinerary={handleDeleteItinerary}
+        updateItineraryName={updateItineraryName}
       ></ItineraryCard>
     );
   });
