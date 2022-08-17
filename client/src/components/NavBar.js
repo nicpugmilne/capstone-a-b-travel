@@ -5,12 +5,12 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import { useContext } from "react";
-import { UserContext } from "../context/UserContext";
+// import { useContext } from "react";
+// import { UserContext } from "../context/UserContext";
 import { useHistory } from "react-router-dom";
 
-function NavBar() {
-  const { user, setUser } = useContext(UserContext);
+function NavBar({ user, setUser }) {
+  // const { user, setUser } = useContext(UserContext);
   const history = useHistory();
 
   function handleLogout() {

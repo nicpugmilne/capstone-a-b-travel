@@ -62,7 +62,7 @@ export default function LoginCard({ hasAccount, setHasAccount }) {
         <Stack align={"center"}>
           <Heading fontSize={"4xl"}>Sign in to your account</Heading>
           <Text fontSize={"lg"} color={"gray.600"}>
-            to enjoy all of our cool features ✌️
+            to start planning your next adventure ✌️
           </Text>
         </Stack>
         <Box

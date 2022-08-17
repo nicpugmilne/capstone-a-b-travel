@@ -8,7 +8,7 @@ function HomeContainer() {
   const [hasAccount, setHasAccount] = useState(true);
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <Box>
         {hasAccount ? (
           <LoginCard

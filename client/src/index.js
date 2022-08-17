@@ -6,13 +6,16 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { UserProvider } from "./context/UserContext";
 import App from "./App.js";
 import { TripsProvider } from "./context/TripsContext";
+import { PublicTripsProvider } from "./context/PublicTripsContext";
 
 ReactDOM.render(
   <ChakraProvider>
     <Router>
       <UserProvider>
         <TripsProvider>
-          <App />
+          <PublicTripsProvider>
+            <App />
+          </PublicTripsProvider>
         </TripsProvider>
       </UserProvider>
     </Router>

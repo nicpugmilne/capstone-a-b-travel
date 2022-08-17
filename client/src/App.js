@@ -25,7 +25,7 @@ function App() {
 
   return (
     <>
-      {/* <Header></Header> */}
+      <Header user={user} setUser={setUser}></Header>
       <Switch>
         <Route exact path="/">
           <HomeContainer></HomeContainer>

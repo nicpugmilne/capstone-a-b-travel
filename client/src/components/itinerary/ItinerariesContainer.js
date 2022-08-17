@@ -84,7 +84,7 @@ function ItinerariesContainer() {
 
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <Box>
         <ItineraryContainerHeader
           tripName={tripName}
