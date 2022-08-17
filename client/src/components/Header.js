@@ -1,7 +1,7 @@
 import { Flex, Box, Heading, Image } from "@chakra-ui/react";
 import NavBar from "./NavBar";
 
-function Header() {
+function Header({ user }) {
   return (
     <Flex
       minWidth="max-content"
