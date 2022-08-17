@@ -25,7 +25,7 @@ function ItineraryModuleItem({ module, handleRemoveModuleItem }) {
     fetch(`/itinerary_modules/${module.id}`, {
       method: "DELETE",
       credentials: "include",
-    }).then(handleRemoveModuleItem(module.id));
+    }).then(handleRemoveModuleItem(module));
   }
 
   return (

@@ -16,7 +16,7 @@ class ItinerariesController < ApplicationController
 
     def update
         itinerary = Itinerary.find_by!(id: params[:id])
-        itinerary.update!(params.permit(:name))
+        itinerary.update!(params.permit(:name, :is_published))
         render json: itinerary
     end
 

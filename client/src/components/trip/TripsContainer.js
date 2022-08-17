@@ -7,6 +7,7 @@ import CreateTripModal from "./CreateTripModal";
 import React, { useState, useEffect, useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 import { TripsContext } from "../../context/TripsContext";
+import Header from "../Header";
 
 function TripsContainer() {
   const { trips, setTrips } = useContext(TripsContext);
@@ -33,18 +34,21 @@ function TripsContainer() {
   }
 
   return (
-    <Box>
-      <TripContainerHeader setModalOpen={setModalOpen} />
-      <SimpleGrid minChildWidth="280px" spacingX="40px" spacingY="10px">
-        {isModalOpen ? (
-          <CreateTripModal
-            setModalOpen={setModalOpen}
-            handleAddTrip={handleAddTrip}
-          />
-        ) : null}
-        {tripCards}
-      </SimpleGrid>
-    </Box>
+    <>
+      <Header user={user}></Header>
+      <Box>
+        <TripContainerHeader setModalOpen={setModalOpen} />
+        <SimpleGrid minChildWidth="280px" spacingX="40px" spacingY="10px">
+          {isModalOpen ? (
+            <CreateTripModal
+              setModalOpen={setModalOpen}
+              handleAddTrip={handleAddTrip}
+            />
+          ) : null}
+          {tripCards}
+        </SimpleGrid>
+      </Box>
+    </>
   );
 }
 

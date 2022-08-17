@@ -11,21 +11,14 @@ import {
   Icon,
   InputGroup,
   InputRightElement,
-  Popover,
-  PopoverTrigger,
-  Portal,
-  PopoverContent,
-  PopoverArrow,
-  PopoverCloseButton,
-  PopoverBody,
-  Text,
+  Tooltip,
   useDisclosure,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { MdCheck } from "react-icons/md";
 import { MdModeEditOutline } from "react-icons/md";
-import { MdOutlineDeleteForever } from "react-icons/md";
 import { useHistory } from "react-router-dom";
+import DeleteTripPopover from "./DeleteTripPopover";
 
 function ItineraryContainerHeader({
   tripName,
@@ -55,16 +48,6 @@ function ItineraryContainerHeader({
       .then((r) => r.json())
       .then((trip) => updateTripName(trip.name));
     setIsEditing(!isEditing);
-  }
-
-  function handleDeleteTrip() {
-    onClose();
-    fetch(`/trips/${tripId}`, {
-      method: "DELETE",
-      credentials: "include",
-    }).then(() => {
-      history.push(`/trips`);
-    });
   }
 
   return (
@@ -97,34 +80,15 @@ function ItineraryContainerHeader({
             <>
               <Heading size="lg">{tripName}</Heading>
               <ButtonGroup size="sm" isAttached>
-                <IconButton
-                  icon={<MdModeEditOutline />}
-                  variant="outline"
-                  onClick={() => setIsEditing(!isEditing)}
-                />
-                <Popover isOpen={isOpen} onOpen={onOpen} onClose={onClose}>
-                  <PopoverTrigger>
-                    <IconButton
-                      icon={<MdOutlineDeleteForever />}
-                      variant="outline"
-                      onClick={onOpen}
-                    />
-                  </PopoverTrigger>
-                  <Portal>
-                    <PopoverContent>
-                      <PopoverArrow />
-                      <PopoverCloseButton onClick={onClose} />
-                      <PopoverBody>
-                        <Box>
-                          <Text>
-                            Are you sure you want to delete this trip?
-                          </Text>
-                          <Button onClick={handleDeleteTrip}>Delete</Button>
-                        </Box>
-                      </PopoverBody>
-                    </PopoverContent>
-                  </Portal>
-                </Popover>
+                <Tooltip hasArrow label="Edit Trip Name">
+                  <IconButton
+                    icon={<MdModeEditOutline />}
+                    size="md"
+                    variant="ghost"
+                    onClick={() => setIsEditing(!isEditing)}
+                  />
+                </Tooltip>
+                <DeleteTripPopover tripId={tripId} />
               </ButtonGroup>
             </>
           )}

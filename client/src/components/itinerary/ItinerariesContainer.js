@@ -7,6 +7,7 @@ import ItineraryCard from "./ItineraryCard";
 import ItineraryContainerHeader from "./ItineraryContainerHeader";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import Header from "../Header";
 
 function ItinerariesContainer() {
   const { trip_id } = useParams();
@@ -82,31 +83,34 @@ function ItinerariesContainer() {
   });
 
   return (
-    <Box>
-      <ItineraryContainerHeader
-        tripName={tripName}
-        tripId={trip_id}
-        itineraryCount={itineraryCount}
-        setItineraryCount={setItineraryCount}
-        handleCreateItinerary={handleCreateItinerary}
-        updateTripName={updateTripName}
-      ></ItineraryContainerHeader>
-      <SimpleGrid
-        columns={{ sm: 1, md: 2, lg: 3 }}
-        spacingX="20px"
-        alignItems="center"
-      >
-        <ActivityFormProvider>
-          <HotelFormProvider>
-            <FlightFormProvider>
-              <GroundTransportationFormProvider>
-                {itineraryCards}
-              </GroundTransportationFormProvider>
-            </FlightFormProvider>
-          </HotelFormProvider>
-        </ActivityFormProvider>
-      </SimpleGrid>
-    </Box>
+    <>
+      <Header />
+      <Box>
+        <ItineraryContainerHeader
+          tripName={tripName}
+          tripId={trip_id}
+          itineraryCount={itineraryCount}
+          setItineraryCount={setItineraryCount}
+          handleCreateItinerary={handleCreateItinerary}
+          updateTripName={updateTripName}
+        ></ItineraryContainerHeader>
+        <SimpleGrid
+          columns={{ sm: 1, md: 2, lg: 3 }}
+          spacingX="20px"
+          alignItems="center"
+        >
+          <ActivityFormProvider>
+            <HotelFormProvider>
+              <FlightFormProvider>
+                <GroundTransportationFormProvider>
+                  {itineraryCards}
+                </GroundTransportationFormProvider>
+              </FlightFormProvider>
+            </HotelFormProvider>
+          </ActivityFormProvider>
+        </SimpleGrid>
+      </Box>
+    </>
   );
 }
 

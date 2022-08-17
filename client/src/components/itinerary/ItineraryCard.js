@@ -7,18 +7,21 @@ import {
   useColorModeValue,
   Flex,
   Spacer,
-  Stack,
+  Tooltip,
   Input,
   InputGroup,
   InputRightElement,
+  ButtonGroup,
+  IconButton,
+  FormErrorMessage,
 } from "@chakra-ui/react";
-// import { MdOutlineStarOutline } from "react-icons/md";
 import { MdCheck } from "react-icons/md";
 import { MdModeEditOutline } from "react-icons/md";
 import { MdOutlineDeleteForever } from "react-icons/md";
 import ItineraryModuleContainer from "./ItineraryModuleContainer";
 import { useState, useEffect } from "react";
 import ItinerarySummary from "./ItinerarySummary";
+import MakePublicToggle from "./MakePublicToggle";
 
 function ItineraryCard({
   itinerary,
@@ -54,11 +57,15 @@ function ItineraryCard({
     updateItineraryCard(updatedItinerary);
   }
 
-  function handleRemoveModuleItem(deletedItemId) {
+  function handleRemoveModuleItem(deletedItem) {
     const updatedModules = modules.filter(
-      (module) => module.id !== deletedItemId
+      (module) => module.id !== deletedItem.id
     );
     setModules(updatedModules);
+    let updatedItinerary = itinerary;
+    updatedItinerary.total_cost = itinerary.total_cost - deletedItem.cost;
+    updatedItinerary.travel_time = itinerary.travel_time - deletedItem.duration;
+    updateItineraryCard(updatedItinerary);
   }
 
   function handleItineraryNameUpdate() {
@@ -75,6 +82,8 @@ function ItineraryCard({
       .then((itinerary) => updateItineraryCard(itinerary));
     setIsEditing(!isEditing);
   }
+
+  const isError = itineraryName === "";
 
   return (
     <GridItem className="problemChild">
@@ -93,19 +102,26 @@ function ItineraryCard({
             {isEditing ? (
               <InputGroup>
                 <Input
+                  isInvalid={isError}
                   placeholder="Set new trip name"
                   value={itineraryName}
                   onChange={handleNameInputChange}
-                />
-                <InputRightElement
-                  children={
-                    <Icon
-                      as={MdCheck}
-                      color="green.500"
-                      onClick={handleItineraryNameUpdate}
-                    />
-                  }
-                />
+                />{" "}
+                {!isError ? (
+                  <InputRightElement
+                    children={
+                      <Icon
+                        as={MdCheck}
+                        color="green.500"
+                        onClick={handleItineraryNameUpdate}
+                      />
+                    }
+                  />
+                ) : (
+                  <FormErrorMessage>
+                    Itinerary name is required.
+                  </FormErrorMessage>
+                )}
               </InputGroup>
             ) : (
               <>
@@ -113,15 +129,20 @@ function ItineraryCard({
                   {itinerary.name}
                 </Text>
                 <Spacer></Spacer>
-                <Icon
-                  as={MdModeEditOutline}
-                  onClick={() => setIsEditing(!isEditing)}
-                ></Icon>
-                <Icon
-                  as={MdOutlineDeleteForever}
-                  ml="5"
-                  onClick={handleDelete}
-                ></Icon>
+                <ButtonGroup>
+                  <Tooltip label="Edit name" placement="bottom">
+                    <IconButton
+                      icon={<MdModeEditOutline />}
+                      onClick={() => setIsEditing(!isEditing)}
+                    ></IconButton>
+                  </Tooltip>
+                  <Tooltip label="Delete itinerary" placement="bottom">
+                    <IconButton
+                      icon={<MdOutlineDeleteForever />}
+                      onClick={handleDelete}
+                    ></IconButton>
+                  </Tooltip>
+                </ButtonGroup>
               </>
             )}
           </Flex>
@@ -132,9 +153,9 @@ function ItineraryCard({
             handleAddModule={handleAddModule}
             handleRemoveModuleItem={handleRemoveModuleItem}
           ></ItineraryModuleContainer>
-          <Box>
-            <ItinerarySummary itinerary={itinerary}></ItinerarySummary>
-          </Box>
+          <ItinerarySummary itinerary={itinerary}></ItinerarySummary>
+
+          <MakePublicToggle itinerary={itinerary} />
         </Box>
       </Center>
     </GridItem>
