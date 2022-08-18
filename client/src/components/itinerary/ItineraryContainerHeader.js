@@ -19,6 +19,7 @@ import { MdCheck } from "react-icons/md";
 import { MdModeEditOutline } from "react-icons/md";
 import { useHistory } from "react-router-dom";
 import DeleteTripPopover from "./DeleteTripPopover";
+import EditTripPopover from "./EditTripPopover";
 
 function ItineraryContainerHeader({
   tripName,
@@ -27,16 +28,9 @@ function ItineraryContainerHeader({
   updateTripName,
 }) {
   const history = useHistory();
-  const [isEditing, setIsEditing] = useState(false);
-  const [name, setTripNameValue] = useState("");
-  const { onOpen, onClose, isOpen } = useDisclosure();
 
-  function handleChange(e) {
-    setTripNameValue(e.target.value);
-  }
-  //Maybe change the trip edit from just the name to also the image https://v1.chakra-ui.com/docs/components/overlay/popover#trapping-focus-within-popover
-  function handleTripNameUpdate() {
-    const updatedTrip = { name: name };
+  function handleTripUpdate(name, image) {
+    const updatedTrip = { name: name, image_url: image };
     fetch(`/trips/${tripId}`, {
       method: "PATCH",
       headers: {
@@ -47,7 +41,6 @@ function ItineraryContainerHeader({
     })
       .then((r) => r.json())
       .then((trip) => updateTripName(trip.name));
-    setIsEditing(!isEditing);
   }
 
   return (
@@ -59,39 +52,14 @@ function ItineraryContainerHeader({
       </Box>
       <Box>
         <HStack>
-          {isEditing ? (
-            <InputGroup>
-              <Input
-                placeholder="Set new trip name"
-                value={name}
-                onChange={handleChange}
-              />
-              <InputRightElement
-                children={
-                  <Icon
-                    as={MdCheck}
-                    color="green.500"
-                    onClick={handleTripNameUpdate}
-                  />
-                }
-              />
-            </InputGroup>
-          ) : (
-            <>
-              <Heading size="lg">{tripName}</Heading>
-              <ButtonGroup size="sm" isAttached>
-                <Tooltip hasArrow label="Edit Trip Name">
-                  <IconButton
-                    icon={<MdModeEditOutline />}
-                    size="md"
-                    variant="ghost"
-                    onClick={() => setIsEditing(!isEditing)}
-                  />
-                </Tooltip>
-                <DeleteTripPopover tripId={tripId} />
-              </ButtonGroup>
-            </>
-          )}
+          <Heading size="lg">{tripName}</Heading>
+          <ButtonGroup size="sm" isAttached>
+            <EditTripPopover
+              tripId={tripId}
+              handleTripUpdate={handleTripUpdate}
+            />
+            <DeleteTripPopover tripId={tripId} />
+          </ButtonGroup>
         </HStack>
       </Box>
       <Box>
