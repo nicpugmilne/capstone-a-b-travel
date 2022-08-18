@@ -24,7 +24,7 @@ function TripsContainer() {
         setTrips(trips);
       });
   }, []);
-
+  console.log(trips);
   const tripCards = trips.map((trip) => {
     return <TripCard key={trip.id} trip={trip}></TripCard>;
   });
@@ -35,7 +35,7 @@ function TripsContainer() {
 
   return (
     <>
-      <Header user={user}></Header>
+      {/* <Header user={user}></Header> */}
       <Box>
         <TripContainerHeader setModalOpen={setModalOpen} />
         <SimpleGrid minChildWidth="280px" spacingX="40px" spacingY="10px">

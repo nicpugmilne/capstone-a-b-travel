@@ -1,19 +1,23 @@
 import { Switch, Route } from "react-router-dom";
 import Header from "./components/Header";
-import DashboardContainer from "./components/DashboardContainer";
+import DashboardContainer from "./components/dashboard/DashboardContainer";
 import ItinerariesContainer from "./components/itinerary/ItinerariesContainer";
 import TripsContainer from "./components/trip/TripsContainer";
 import HomeContainer from "./components/HomeContainer";
 import { useContext, useEffect } from "react";
 import { UserContext } from "./context/UserContext";
+import { TripsContext } from "./context/TripsContext";
 
 function App() {
   const { user, setUser } = useContext(UserContext);
+  const { setTrips } = useContext(TripsContext);
 
   useEffect(() => {
     fetch("/me").then((response) => {
       if (response.ok) {
-        response.json().then((user) => setUser(user));
+        response.json().then((user) => {
+          setUser(user);
+        });
       } else {
         console.log(response);
         console.log("no users logged in");
@@ -21,11 +25,22 @@ function App() {
     });
   }, []);
 
+  // useEffect(() => {
+  //   fetch(`/users/${user.id}/trips`, {
+  //     method: "GET",
+  //     credentials: "include",
+  //   })
+  //     .then((res) => res.json())
+  //     .then((trips) => {
+  //       setTrips(trips);
+  //     });
+  // }, []);
+
   console.log(user);
 
   return (
     <>
-      {/* <Header></Header> */}
+      <Header user={user} setUser={setUser}></Header>
       <Switch>
         <Route exact path="/">
           <HomeContainer></HomeContainer>

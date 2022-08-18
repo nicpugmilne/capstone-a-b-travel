@@ -87,7 +87,6 @@ function CreateModuleModal({ setModalOpen, itineraryId, handleAddModule }) {
             </TabPanel>
           </TabPanels>
         </Tabs>
-        <ModalCloseButton />
       </ModalContent>
     </Modal>
   );

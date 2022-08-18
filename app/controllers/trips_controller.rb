@@ -27,7 +27,7 @@ class TripsController < ApplicationController
 
     def update
         trip = find_trip
-        trip.update!(params.permit(:name))
+        trip.update!(params.permit(:name, :image_url))
         render json: trip
     end
 

@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   to: "trips#itineraries_index"
 
   get "/users/:user_id/trips", to: "trips#user_trips_index"
+  get "/public/itineraries", to: "itineraries#public_itineraries_index"
 
   # auth routes
   post "/signup", to: "users#create"

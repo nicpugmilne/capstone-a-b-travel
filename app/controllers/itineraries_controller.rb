@@ -1,5 +1,5 @@
 class ItinerariesController < ApplicationController
-    skip_before_action :authorize, only: [:index]
+    skip_before_action :authorize, only: [:index, :public_itineraries_index]
     def index
         render json: Itinerary.all
     end
@@ -24,5 +24,10 @@ class ItinerariesController < ApplicationController
         itinerary = Itinerary.find(params[:id])
         itinerary.destroy
         head :no_content
-      end
+    end
+
+    def public_itineraries_index
+        itineraries = Itinerary.where(is_published: true)
+        render json: itineraries
+    end
 end
