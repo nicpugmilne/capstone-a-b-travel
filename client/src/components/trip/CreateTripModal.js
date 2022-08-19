@@ -57,11 +57,29 @@ function CreateTripModal({ setModalOpen, handleAddTrip }) {
       body: JSON.stringify(newTrip),
     })
       .then((r) => r.json())
-      .then((newTrip) => handleAddTrip(newTrip));
-    setNameValue("");
-    setImageValue("");
+      .then((newTrip) => {
+        handleAddTrip(newTrip);
+        setNameValue("");
+        setImageValue("");
+        createFirstItinerary(newTrip.id);
+      });
   };
-
+  function createFirstItinerary(tripId) {
+    const newItinerary = {
+      trip_id: tripId,
+      name: `Itinerary A`,
+      is_favorite: false,
+      is_published: false,
+    };
+    fetch("/itineraries", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(newItinerary),
+    });
+  }
   return (
     <Modal isOpen={isOpen} onClose={handleClose}>
       <ModalOverlay w="full" />

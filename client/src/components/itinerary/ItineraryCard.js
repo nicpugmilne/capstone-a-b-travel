@@ -14,6 +14,7 @@ import {
   ButtonGroup,
   IconButton,
   FormErrorMessage,
+  Skeleton,
 } from "@chakra-ui/react";
 import { MdCheck } from "react-icons/md";
 import { MdModeEditOutline } from "react-icons/md";
@@ -86,6 +87,7 @@ function ItineraryCard({
   const isError = itineraryName === "";
 
   return (
+    // <Skeleton isLoaded={true}>
     <GridItem className="problemChild">
       <Center py={6}>
         <Box
@@ -159,6 +161,7 @@ function ItineraryCard({
         </Box>
       </Center>
     </GridItem>
+    // </Skeleton>
   );
 }
 
