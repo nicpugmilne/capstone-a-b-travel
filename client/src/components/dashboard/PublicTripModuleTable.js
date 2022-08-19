@@ -19,19 +19,15 @@ export default function PublicTripModuleTable({ modules }) {
     );
   });
   return (
-    <Center>
-      <TableContainer>
-        <Table size="sm" variant="unstyled">
-          <Thead>
-            <Tr>
-              <Th></Th>
-              <Th>Name</Th>
-              <Th>Cost</Th>
-            </Tr>
-          </Thead>
-          <Tbody>{moduleItems}</Tbody>
-        </Table>
-      </TableContainer>
-    </Center>
+    <Table size="sm" variant="unstyled">
+      <Thead>
+        <Tr>
+          <Th></Th>
+          <Th>Name</Th>
+          <Th>Cost</Th>
+        </Tr>
+      </Thead>
+      <Tbody>{moduleItems}</Tbody>
+    </Table>
   );
 }

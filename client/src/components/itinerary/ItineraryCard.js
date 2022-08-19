@@ -87,81 +87,157 @@ function ItineraryCard({
   const isError = itineraryName === "";
 
   return (
-    // <Skeleton isLoaded={true}>
-    <GridItem className="problemChild">
-      <Center py={6}>
-        <Box
-          maxW={"500px"}
-          minH={"550px"}
-          w={"full"}
-          bg={useColorModeValue("gray.50", "gray.500")}
-          boxShadow={"lg"}
-          rounded={"md"}
-          m={"auto"}
-          className="secondProblem"
-        >
-          <Flex align={"center"} m="5">
-            {isEditing ? (
-              <InputGroup>
-                <Input
-                  isInvalid={isError}
-                  placeholder="Set new trip name"
-                  value={itineraryName}
-                  onChange={handleNameInputChange}
-                />{" "}
-                {!isError ? (
-                  <InputRightElement
-                    children={
-                      <Icon
-                        as={MdCheck}
-                        color="green.500"
-                        onClick={handleItineraryNameUpdate}
-                      />
-                    }
-                  />
-                ) : (
-                  <FormErrorMessage>
-                    Itinerary name is required.
-                  </FormErrorMessage>
-                )}
-              </InputGroup>
-            ) : (
-              <>
-                <Text fontSize={"xl"} fontWeight={500} p={2} px={3}>
-                  {itinerary.name}
-                </Text>
-                <Spacer></Spacer>
-                <ButtonGroup>
-                  <Tooltip label="Edit name" placement="bottom">
-                    <IconButton
-                      icon={<MdModeEditOutline />}
-                      onClick={() => setIsEditing(!isEditing)}
-                    ></IconButton>
-                  </Tooltip>
-                  <Tooltip label="Delete itinerary" placement="bottom">
-                    <IconButton
-                      icon={<MdOutlineDeleteForever />}
-                      onClick={handleDelete}
-                    ></IconButton>
-                  </Tooltip>
-                </ButtonGroup>
-              </>
-            )}
-          </Flex>
-          <ItineraryModuleContainer
-            setModalOpen={setModalOpen}
-            modules={modules}
-            itineraryId={itinerary.id}
-            handleAddModule={handleAddModule}
-            handleRemoveModuleItem={handleRemoveModuleItem}
-          ></ItineraryModuleContainer>
-          <ItinerarySummary itinerary={itinerary}></ItinerarySummary>
+    // <GridItem className="problemChild">
+    //   <Center py={6}>
+    //     <Box
+    //       maxW={"500px"}
+    //       minH={"550px"}
+    //       w={"full"}
+    //       bg={useColorModeValue("gray.50", "gray.500")}
+    //       boxShadow={"lg"}
+    //       rounded={"md"}
+    //       m={"auto"}
+    //       className="secondProblem"
+    //     >
+    //       <Flex align={"center"} m="5">
+    //         {isEditing ? (
+    //           <InputGroup>
+    //             <Input
+    //               isInvalid={isError}
+    //               placeholder="Set new trip name"
+    //               value={itineraryName}
+    //               onChange={handleNameInputChange}
+    //             />{" "}
+    //             {!isError ? (
+    //               <InputRightElement
+    //                 children={
+    //                   <Icon
+    //                     as={MdCheck}
+    //                     color="green.500"
+    //                     onClick={handleItineraryNameUpdate}
+    //                   />
+    //                 }
+    //               />
+    //             ) : (
+    //               <FormErrorMessage>
+    //                 Itinerary name is required.
+    //               </FormErrorMessage>
+    //             )}
+    //           </InputGroup>
+    //         ) : (
+    //           <>
+    //             <Text fontSize={"xl"} fontWeight={500} p={2} px={3}>
+    //               {itinerary.name}
+    //             </Text>
+    //             <Spacer></Spacer>
+    //             <ButtonGroup>
+    //               <Tooltip label="Edit name" placement="bottom">
+    //                 <IconButton
+    //                   icon={<MdModeEditOutline />}
+    //                   onClick={() => setIsEditing(!isEditing)}
+    //                 ></IconButton>
+    //               </Tooltip>
+    //               <Tooltip label="Delete itinerary" placement="bottom">
+    //                 <IconButton
+    //                   icon={<MdOutlineDeleteForever />}
+    //                   onClick={handleDelete}
+    //                 ></IconButton>
+    //               </Tooltip>
+    //             </ButtonGroup>
+    //           </>
+    //         )}
+    //       </Flex>
+    //       <ItineraryModuleContainer
+    //         setModalOpen={setModalOpen}
+    //         modules={modules}
+    //         itineraryId={itinerary.id}
+    //         handleAddModule={handleAddModule}
+    //         handleRemoveModuleItem={handleRemoveModuleItem}
+    //       ></ItineraryModuleContainer>
+    //       <ItinerarySummary itinerary={itinerary}></ItinerarySummary>
 
-          <MakePublicToggle itinerary={itinerary} />
-        </Box>
-      </Center>
-    </GridItem>
+    //       <MakePublicToggle itinerary={itinerary} />
+    //     </Box>
+    //   </Center>
+    // </GridItem>
     // </Skeleton>
+
+    <Flex
+      width={[
+        "100%", // 0-30em
+        "100%", // 30em-48em
+        "50%", // 48em-62em
+        "30%", // 62em+
+      ]}
+      bg="gray.50"
+      direction={"column"}
+      justifyContent="space-between"
+    >
+      <Flex direction={"column"} flex="0">
+        {isEditing ? (
+          <InputGroup>
+            <Input
+              isInvalid={isError}
+              placeholder="Set new trip name"
+              value={itineraryName}
+              onChange={handleNameInputChange}
+            />{" "}
+            {!isError ? (
+              <InputRightElement
+                children={
+                  <Icon
+                    as={MdCheck}
+                    color="green.500"
+                    onClick={handleItineraryNameUpdate}
+                  />
+                }
+              />
+            ) : (
+              <FormErrorMessage>Itinerary name is required.</FormErrorMessage>
+            )}
+          </InputGroup>
+        ) : (
+          <Flex>
+            <Text fontSize={"xl"} fontWeight={500} p={2} px={3}>
+              {itinerary.name}
+            </Text>
+            <Spacer></Spacer>
+            <ButtonGroup>
+              <Tooltip label="Edit name" placement="bottom">
+                <IconButton
+                  icon={<MdModeEditOutline />}
+                  onClick={() => setIsEditing(!isEditing)}
+                ></IconButton>
+              </Tooltip>
+              <Tooltip label="Delete itinerary" placement="bottom">
+                <IconButton
+                  icon={<MdOutlineDeleteForever />}
+                  onClick={handleDelete}
+                ></IconButton>
+              </Tooltip>
+            </ButtonGroup>
+          </Flex>
+        )}
+        <ItineraryModuleContainer
+          setModalOpen={setModalOpen}
+          modules={modules}
+          itineraryId={itinerary.id}
+          handleAddModule={handleAddModule}
+          handleRemoveModuleItem={handleRemoveModuleItem}
+        ></ItineraryModuleContainer>
+      </Flex>
+      <Flex
+        direction={"column"}
+        justifySelf={"flex-bottom"}
+        alignItems="center"
+      >
+        <ItinerarySummary itinerary={itinerary}></ItinerarySummary>
+
+        <MakePublicToggle itinerary={itinerary} />
+      </Flex>
+
+      {/* </Box> */}
+    </Flex>
   );
 }
 
