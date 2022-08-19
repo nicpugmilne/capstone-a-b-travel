@@ -13,8 +13,6 @@ import {
   FormControl,
   FormLabel,
   Input,
-  FormHelperText,
-  FormErrorMessage,
 } from "@chakra-ui/react";
 import { MdModeEditOutline } from "react-icons/md";
 import { useState } from "react";
@@ -67,7 +65,7 @@ export default function EditTripPopover({ handleTripUpdate }) {
             </AlertDialogBody>
 
             <AlertDialogFooter>
-              <Button ref={cancelRef} onClick={handleUpdate}>
+              <Button ref={cancelRef} onClick={onClose}>
                 Cancel
               </Button>
               {isError ? (
