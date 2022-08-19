@@ -7,6 +7,7 @@ import {
   Tr,
   Th,
   TableContainer,
+  Flex,
 } from "@chakra-ui/react";
 import ItineraryModuleItem from "./ItineraryModuleItem";
 import { useState } from "react";
@@ -34,7 +35,7 @@ function ItineraryModuleContainer({
   }
 
   return (
-    <Box>
+    <Flex direction={"column"}>
       {isModalOpen ? (
         <CreateModuleModal
           setModalOpen={setModalOpen}
@@ -73,7 +74,7 @@ function ItineraryModuleContainer({
       >
         Add to trip
       </Button>
-    </Box>
+    </Flex>
   );
 }
 

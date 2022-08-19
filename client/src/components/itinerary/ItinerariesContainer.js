@@ -2,7 +2,7 @@ import { ActivityFormProvider } from "../../context/ActivityFormContext";
 import { HotelFormProvider } from "../../context/HotelFormContext";
 import { FlightFormProvider } from "../../context/FlightFormContext";
 import { GroundTransportationFormProvider } from "../../context/GroundTransportationFormContext";
-import { Box, SimpleGrid } from "@chakra-ui/react";
+import { Box, SimpleGrid, Wrap } from "@chakra-ui/react";
 import ItineraryCard from "./ItineraryCard";
 import ItineraryContainerHeader from "./ItineraryContainerHeader";
 import { useParams } from "react-router-dom";
@@ -84,32 +84,25 @@ function ItinerariesContainer() {
 
   return (
     <>
-      {/* <Header /> */}
-      <Box>
-        <ItineraryContainerHeader
-          tripName={tripName}
-          tripId={trip_id}
-          itineraryCount={itineraryCount}
-          setItineraryCount={setItineraryCount}
-          handleCreateItinerary={handleCreateItinerary}
-          updateTripName={updateTripName}
-        ></ItineraryContainerHeader>
-        <SimpleGrid
-          columns={{ sm: 1, md: 2, lg: 3 }}
-          spacingX="20px"
-          alignItems="center"
-        >
-          <ActivityFormProvider>
-            <HotelFormProvider>
-              <FlightFormProvider>
-                <GroundTransportationFormProvider>
-                  {itineraryCards}
-                </GroundTransportationFormProvider>
-              </FlightFormProvider>
-            </HotelFormProvider>
-          </ActivityFormProvider>
-        </SimpleGrid>
-      </Box>
+      <ItineraryContainerHeader
+        tripName={tripName}
+        tripId={trip_id}
+        itineraryCount={itineraryCount}
+        setItineraryCount={setItineraryCount}
+        handleCreateItinerary={handleCreateItinerary}
+        updateTripName={updateTripName}
+      ></ItineraryContainerHeader>
+      <Wrap>
+        <ActivityFormProvider>
+          <HotelFormProvider>
+            <FlightFormProvider>
+              <GroundTransportationFormProvider>
+                {itineraryCards}
+              </GroundTransportationFormProvider>
+            </FlightFormProvider>
+          </HotelFormProvider>
+        </ActivityFormProvider>
+      </Wrap>
     </>
   );
 }

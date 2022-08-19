@@ -1,12 +1,4 @@
-import {
-  Center,
-  Box,
-  useColorModeValue,
-  Image,
-  Text,
-  GridItem,
-  Button,
-} from "@chakra-ui/react";
+import { Image, Text, Button, Flex } from "@chakra-ui/react";
 import { useContext } from "react";
 import PublicTripModuleTable from "./PublicTripModuleTable";
 import { UserContext } from "../../context/UserContext";
@@ -81,43 +73,44 @@ export default function PublicTripCard({ trip }) {
   }
 
   return (
-    <GridItem>
-      <Box
-        p={6}
-        maxW={"330px"}
-        w={"full"}
-        bg={useColorModeValue("white", "gray.800")}
-        boxShadow={"lg"}
-        rounded={"lg"}
-        overflow={"hidden"}
-      >
-        {/* <Box> */}
+    <Flex
+      width={[
+        "100%", // 0-30em
+        "100%", // 30em-48em
+        "50%", // 48em-62em
+        "30%", // 62em+
+      ]}
+      bg="gray.50"
+      direction={"column"}
+      justifyContent="space-between"
+    >
+      <Flex direction={"column"} flex="0">
         <Image
-          rounded={"lg"}
-          height={"120px"}
+          height={"250px"}
           width={"full"}
           objectFit={"cover"}
           src={trip.trip.image_url}
-        ></Image>
-        {/* </Box> */}
-        <Box>
-          <Center>
-            <Text>{trip.trip.name}</Text>
-          </Center>
-          <PublicTripModuleTable
-            modules={trip.itinerary_modules}
-          ></PublicTripModuleTable>
-        </Box>
-        <Box>
-          <Text>
-            Dates: {trip.itinerary_start_date} - {trip.itinerary_end_date}
-          </Text>
-          <Text>Total cost: ${trip.total_cost}</Text>
-        </Box>
-        <Box>
-          <Button onClick={cloneTrip}>Clone Trip</Button>
-        </Box>
-      </Box>
-    </GridItem>
+        />
+        <Flex justify={"center"} fontSize="2xl" m="3">
+          {trip.trip.name}
+        </Flex>
+        <PublicTripModuleTable
+          modules={trip.itinerary_modules}
+        ></PublicTripModuleTable>
+      </Flex>
+      <Flex
+        direction={"column"}
+        justifySelf={"flex-bottom"}
+        alignItems="center"
+      >
+        <Text fontSize="md" mt="3">
+          Dates: {trip.itinerary_start_date} - {trip.itinerary_end_date}
+        </Text>
+        <Text fontSize="md">Total cost: ${trip.total_cost}</Text>
+        <Button m="3" onClick={cloneTrip}>
+          Clone Trip
+        </Button>
+      </Flex>
+    </Flex>
   );
 }
