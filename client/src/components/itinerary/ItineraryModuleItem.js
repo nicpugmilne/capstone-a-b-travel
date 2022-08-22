@@ -1,10 +1,16 @@
-import { Tr, Td, Icon, Box, Button, Text } from "@chakra-ui/react";
+import { Tr, Td, Icon, Button } from "@chakra-ui/react";
 import { MdFlight } from "react-icons/md";
 import { MdHotel } from "react-icons/md";
 import { MdDirectionsCar } from "react-icons/md";
 import { MdLocalActivity } from "react-icons/md";
+import EditModuleModal from "./EditModuleModal";
 
-function ItineraryModuleItem({ module, handleRemoveModuleItem }) {
+function ItineraryModuleItem({
+  module,
+  itineraryId,
+  handleRemoveModuleItem,
+  handleEditModuleItem,
+}) {
   let icon;
   switch (module.module_type.id) {
     case 1:
@@ -40,6 +46,13 @@ function ItineraryModuleItem({ module, handleRemoveModuleItem }) {
         <Td>{module.name}</Td>
         <Td>{module.duration}</Td>
         <Td>${module.cost}</Td>
+        <Td>
+          <EditModuleModal
+            module={module}
+            itineraryId={itineraryId}
+            handleEditModuleItem={handleEditModuleItem}
+          />
+        </Td>
         <Td onClick={handleDelete}>
           <Button size="xs">Delete</Button>
         </Td>

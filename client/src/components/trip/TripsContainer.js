@@ -24,7 +24,7 @@ function TripsContainer() {
         setTrips(trips);
       });
   }, []);
-  console.log(trips);
+
   const tripCards = trips.map((trip) => {
     return <TripCard key={trip.id} trip={trip}></TripCard>;
   });

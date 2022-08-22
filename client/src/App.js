@@ -6,11 +6,9 @@ import TripsContainer from "./components/trip/TripsContainer";
 import HomeContainer from "./components/HomeContainer";
 import { useContext, useEffect } from "react";
 import { UserContext } from "./context/UserContext";
-import { TripsContext } from "./context/TripsContext";
 
 function App() {
   const { user, setUser } = useContext(UserContext);
-  const { setTrips } = useContext(TripsContext);
 
   useEffect(() => {
     fetch("/me").then((response) => {
@@ -24,19 +22,6 @@ function App() {
       }
     });
   }, []);
-
-  // useEffect(() => {
-  //   fetch(`/users/${user.id}/trips`, {
-  //     method: "GET",
-  //     credentials: "include",
-  //   })
-  //     .then((res) => res.json())
-  //     .then((trips) => {
-  //       setTrips(trips);
-  //     });
-  // }, []);
-
-  console.log(user);
 
   return (
     <>

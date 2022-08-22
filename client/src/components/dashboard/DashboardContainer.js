@@ -1,26 +1,7 @@
-import Header from "../Header";
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import { PublicTripsContext } from "../../context/PublicTripsContext";
-import TripCard from "../trip/TripCard";
 import PublicTripCard from "./PublicTripCard";
-import {
-  GridItem,
-  SimpleGrid,
-  Box,
-  Text,
-  Flex,
-  Image,
-  Table,
-  Th,
-  Tr,
-  Td,
-  Button,
-  Tbody,
-  Thead,
-  Center,
-  Wrap,
-  WrapItem,
-} from "@chakra-ui/react";
+import { Wrap } from "@chakra-ui/react";
 
 function DashboardContainer() {
   const { publicTrips, setPublicTrips } = useContext(PublicTripsContext);

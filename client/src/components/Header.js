@@ -16,7 +16,7 @@ function Header({ user, setUser }) {
         <Heading size="md">
           <Image
             boxSize="45px"
-            src="ab-travel-logo.png"
+            src="/AB_travel_logo.png"
             alt="A/B travel logo"
           />
         </Heading>

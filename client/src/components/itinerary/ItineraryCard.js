@@ -64,9 +64,22 @@ function ItineraryCard({
     );
     setModules(updatedModules);
     let updatedItinerary = itinerary;
+    //update the total_cost and travel_time key value pairs
     updatedItinerary.total_cost = itinerary.total_cost - deletedItem.cost;
     updatedItinerary.travel_time = itinerary.travel_time - deletedItem.duration;
     updateItineraryCard(updatedItinerary);
+  }
+
+  function handleEditModuleItem(changedModule) {
+    console.log(changedModule);
+    const updatedModulesList = modules.map((module) => {
+      if (module.id === changedModule.id) {
+        return changedModule;
+      } else {
+        return module;
+      }
+    });
+    setModules(updatedModulesList);
   }
 
   function handleItineraryNameUpdate() {
@@ -87,85 +100,10 @@ function ItineraryCard({
   const isError = itineraryName === "";
 
   return (
-    // <GridItem className="problemChild">
-    //   <Center py={6}>
-    //     <Box
-    //       maxW={"500px"}
-    //       minH={"550px"}
-    //       w={"full"}
-    //       bg={useColorModeValue("gray.50", "gray.500")}
-    //       boxShadow={"lg"}
-    //       rounded={"md"}
-    //       m={"auto"}
-    //       className="secondProblem"
-    //     >
-    //       <Flex align={"center"} m="5">
-    //         {isEditing ? (
-    //           <InputGroup>
-    //             <Input
-    //               isInvalid={isError}
-    //               placeholder="Set new trip name"
-    //               value={itineraryName}
-    //               onChange={handleNameInputChange}
-    //             />{" "}
-    //             {!isError ? (
-    //               <InputRightElement
-    //                 children={
-    //                   <Icon
-    //                     as={MdCheck}
-    //                     color="green.500"
-    //                     onClick={handleItineraryNameUpdate}
-    //                   />
-    //                 }
-    //               />
-    //             ) : (
-    //               <FormErrorMessage>
-    //                 Itinerary name is required.
-    //               </FormErrorMessage>
-    //             )}
-    //           </InputGroup>
-    //         ) : (
-    //           <>
-    //             <Text fontSize={"xl"} fontWeight={500} p={2} px={3}>
-    //               {itinerary.name}
-    //             </Text>
-    //             <Spacer></Spacer>
-    //             <ButtonGroup>
-    //               <Tooltip label="Edit name" placement="bottom">
-    //                 <IconButton
-    //                   icon={<MdModeEditOutline />}
-    //                   onClick={() => setIsEditing(!isEditing)}
-    //                 ></IconButton>
-    //               </Tooltip>
-    //               <Tooltip label="Delete itinerary" placement="bottom">
-    //                 <IconButton
-    //                   icon={<MdOutlineDeleteForever />}
-    //                   onClick={handleDelete}
-    //                 ></IconButton>
-    //               </Tooltip>
-    //             </ButtonGroup>
-    //           </>
-    //         )}
-    //       </Flex>
-    //       <ItineraryModuleContainer
-    //         setModalOpen={setModalOpen}
-    //         modules={modules}
-    //         itineraryId={itinerary.id}
-    //         handleAddModule={handleAddModule}
-    //         handleRemoveModuleItem={handleRemoveModuleItem}
-    //       ></ItineraryModuleContainer>
-    //       <ItinerarySummary itinerary={itinerary}></ItinerarySummary>
-
-    //       <MakePublicToggle itinerary={itinerary} />
-    //     </Box>
-    //   </Center>
-    // </GridItem>
-    // </Skeleton>
-
     <Flex
       width={[
         "100%", // 0-30em
-        "100%", // 30em-48em
+        "50%", // 30em-48em
         "50%", // 48em-62em
         "30%", // 62em+
       ]}
@@ -181,7 +119,7 @@ function ItineraryCard({
               placeholder="Set new trip name"
               value={itineraryName}
               onChange={handleNameInputChange}
-            />{" "}
+            />
             {!isError ? (
               <InputRightElement
                 children={
@@ -224,6 +162,7 @@ function ItineraryCard({
           itineraryId={itinerary.id}
           handleAddModule={handleAddModule}
           handleRemoveModuleItem={handleRemoveModuleItem}
+          handleEditModuleItem={handleEditModuleItem}
         ></ItineraryModuleContainer>
       </Flex>
       <Flex
@@ -235,8 +174,6 @@ function ItineraryCard({
 
         <MakePublicToggle itinerary={itinerary} />
       </Flex>
-
-      {/* </Box> */}
     </Flex>
   );
 }
