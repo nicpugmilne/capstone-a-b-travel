@@ -42,48 +42,24 @@ function EditActivityForm({
   };
 
   function handleEdit() {
-    let monthNames = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ];
-
-    const startDateArr = startDate.split("-");
-    const startMonth = startDateArr[1];
-    const startDay = startDateArr[2];
-    const endDateArr = endDate.split("-");
-    const endMonth = endDateArr[1];
-    const endDay = endDateArr[2];
-
-    let startMonthIndex = parseInt(startMonth) - 1;
-    let startMonthName = monthNames[startMonthIndex];
-    let endMonthIndex = parseInt(endMonth) - 1;
-    let endMonthName = monthNames[endMonthIndex];
-
-    const formattedStartDate = `${startMonthName} ${startDay}`;
-    const formattedEndDate = `${endMonthName} ${endDay}`;
-
     const updatedModule = {
-      id: module.id,
-      module_type: { id: 4 },
-      itinerary_id: itineraryId,
       name: name,
-      start_date: formattedStartDate,
-      end_date: formattedEndDate,
+      start_datetime: startDate,
+      end_datetime: endDate,
       cost: cost,
       notes: notes,
     };
 
-    handleEditModuleItem(updatedModule);
+    fetch(`/itinerary_modules/${module.id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(updatedModule),
+    })
+      .then((r) => r.json())
+      .then((module) => handleEditModuleItem(module));
     onClose();
   }
 

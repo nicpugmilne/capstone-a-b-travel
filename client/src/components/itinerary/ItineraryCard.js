@@ -71,6 +71,7 @@ function ItineraryCard({
   }
 
   function handleEditModuleItem(changedModule) {
+    console.log(changedModule);
     const updatedModulesList = modules.map((module) => {
       if (module.id === changedModule.id) {
         return changedModule;
