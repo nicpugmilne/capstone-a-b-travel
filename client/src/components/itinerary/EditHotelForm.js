@@ -9,10 +9,10 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 
-function EditHotelForm({ module, itineraryId, onClose, handleEditModuleItem }) {
+function EditHotelForm({ module, onClose, handleEditModuleItem }) {
   const [name, setName] = useState(module.name);
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
   const [cost, setCost] = useState(module.cost);
   const [notes, setNotes] = useState(module.notes);
 
@@ -54,7 +54,7 @@ function EditHotelForm({ module, itineraryId, onClose, handleEditModuleItem }) {
       body: JSON.stringify(updatedModule),
     })
       .then((r) => r.json())
-      .then((module) => handleEditModuleItem(module));
+      .then((item) => handleEditModuleItem(item, module.cost, module.duration));
     onClose();
   }
 

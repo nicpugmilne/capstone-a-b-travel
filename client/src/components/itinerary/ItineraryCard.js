@@ -1,10 +1,6 @@
 import {
-  GridItem,
-  Box,
-  Center,
   Text,
   Icon,
-  useColorModeValue,
   Flex,
   Spacer,
   Tooltip,
@@ -14,7 +10,6 @@ import {
   ButtonGroup,
   IconButton,
   FormErrorMessage,
-  Skeleton,
 } from "@chakra-ui/react";
 import { MdCheck } from "react-icons/md";
 import { MdModeEditOutline } from "react-icons/md";
@@ -55,6 +50,12 @@ function ItineraryCard({
     let updatedItinerary = itinerary;
     updatedItinerary.total_cost = itinerary.total_cost + newModule.cost;
     updatedItinerary.travel_time = itinerary.travel_time + newModule.duration;
+    updatedItinerary.itinerary_start_date = handleStartDateUpdate(
+      newModule.start_date
+    );
+    updatedItinerary.itinerary_end_date = handleEndDateUpdate(
+      newModule.end_date
+    );
     updateItineraryCard(updatedItinerary);
   }
 
@@ -70,8 +71,7 @@ function ItineraryCard({
     updateItineraryCard(updatedItinerary);
   }
 
-  function handleEditModuleItem(changedModule) {
-    console.log(changedModule);
+  function handleEditModuleItem(changedModule, oldCost, oldTravelTime) {
     const updatedModulesList = modules.map((module) => {
       if (module.id === changedModule.id) {
         return changedModule;
@@ -79,7 +79,21 @@ function ItineraryCard({
         return module;
       }
     });
+
     setModules(updatedModulesList);
+    //update the total_cost and travel_time key value pairs as well as date summary
+    let updatedItinerary = itinerary;
+    updatedItinerary.total_cost =
+      itinerary.total_cost - oldCost + changedModule.cost;
+    updatedItinerary.travel_time =
+      itinerary.travel_time - oldTravelTime + changedModule.duration;
+    updatedItinerary.itinerary_start_date = handleStartDateUpdate(
+      changedModule.start_date
+    );
+    updatedItinerary.itinerary_end_date = handleEndDateUpdate(
+      changedModule.end_date
+    );
+    updateItineraryCard(updatedItinerary);
   }
 
   function handleItineraryNameUpdate() {
@@ -95,6 +109,22 @@ function ItineraryCard({
       .then((r) => r.json())
       .then((itinerary) => updateItineraryCard(itinerary));
     setIsEditing(!isEditing);
+  }
+
+  function handleStartDateUpdate(updatedStartDate) {
+    if (updatedStartDate < itinerary.itinerary_start_date) {
+      return updatedStartDate;
+    } else {
+      return itinerary.itinerary_start_date;
+    }
+  }
+
+  function handleEndDateUpdate(updatedEndDate) {
+    if (updatedEndDate > itinerary.itinerary_end_date) {
+      return updatedEndDate;
+    } else {
+      return itinerary.itinerary_end_date;
+    }
   }
 
   const isError = itineraryName === "";
