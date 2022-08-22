@@ -1,4 +1,4 @@
-import { Image, Text, Button, Flex } from "@chakra-ui/react";
+import { Image, Text, Button, Flex, useColorModeValue } from "@chakra-ui/react";
 import { useContext } from "react";
 import PublicTripModuleTable from "./PublicTripModuleTable";
 import { UserContext } from "../../context/UserContext";
@@ -77,9 +77,12 @@ export default function PublicTripCard({ trip }) {
         "50%", // 48em-62em
         "30%", // 62em+
       ]}
-      bg="gray.50"
       direction={"column"}
-      justifyContent="space-between"
+      justifyContent={"space-between"}
+      boxShadow={"lg"}
+      rounded={"2xl"}
+      bg={useColorModeValue("white", "gray.800")}
+      pos={"relative"}
     >
       <Flex direction={"column"} flex="0">
         <Image
@@ -87,6 +90,7 @@ export default function PublicTripCard({ trip }) {
           width={"full"}
           objectFit={"cover"}
           src={trip.trip.image_url}
+          borderTopRadius="2xl"
         />
         <Flex justify={"center"} fontSize="2xl" m="3">
           {trip.trip.name}

@@ -47,15 +47,13 @@ export default function EditTripPopover({ handleTripUpdate }) {
       >
         <AlertDialogOverlay>
           <AlertDialogContent>
-            <AlertDialogHeader fontSize="lg" fontWeight="bold">
-              Edit Trip
-            </AlertDialogHeader>
+            <AlertDialogHeader fontSize="xl">Edit Trip</AlertDialogHeader>
 
             <AlertDialogBody>
               <FormControl isInvalid={isError}>
                 <FormLabel>Trip name</FormLabel>
                 <Input value={nameInput} onChange={handleNameInputChange} />
-                <FormLabel>Trip image</FormLabel>
+                <FormLabel mt={3}>Trip image</FormLabel>
                 <Input
                   type="url"
                   value={imageInput}
@@ -69,11 +67,16 @@ export default function EditTripPopover({ handleTripUpdate }) {
                 Cancel
               </Button>
               {isError ? (
-                <Button isDisabled ref={cancelRef} onClick={handleUpdate}>
+                <Button
+                  isDisabled
+                  ref={cancelRef}
+                  onClick={handleUpdate}
+                  ml={3}
+                >
                   Save
                 </Button>
               ) : (
-                <Button ref={cancelRef} onClick={handleUpdate}>
+                <Button ref={cancelRef} onClick={handleUpdate} ml={3}>
                   Save
                 </Button>
               )}

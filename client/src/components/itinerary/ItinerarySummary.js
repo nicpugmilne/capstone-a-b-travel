@@ -2,7 +2,7 @@ import { Text, Stack } from "@chakra-ui/react";
 
 export default function ItinerarySummary({ itinerary }) {
   return (
-    <Stack align={"center"} justify={"center"} mb="10">
+    <Stack align={"center"} justify={"center"} m="5">
       <Text fontSize={"lg"}>Summary:</Text>
       <Text fontSize={"sm"} fontWeight={500}>
         Total Cost: ${itinerary.total_cost}

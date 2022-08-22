@@ -2,12 +2,11 @@ import { ActivityFormProvider } from "../../context/ActivityFormContext";
 import { HotelFormProvider } from "../../context/HotelFormContext";
 import { FlightFormProvider } from "../../context/FlightFormContext";
 import { GroundTransportationFormProvider } from "../../context/GroundTransportationFormContext";
-import { Box, SimpleGrid, Wrap } from "@chakra-ui/react";
+import { Wrap } from "@chakra-ui/react";
 import ItineraryCard from "./ItineraryCard";
 import ItineraryContainerHeader from "./ItineraryContainerHeader";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import Header from "../Header";
 
 function ItinerariesContainer() {
   const { trip_id } = useParams();
@@ -92,7 +91,7 @@ function ItinerariesContainer() {
         handleCreateItinerary={handleCreateItinerary}
         updateTripName={updateTripName}
       ></ItineraryContainerHeader>
-      <Wrap>
+      <Wrap spacing="18px" justify="center" p={5}>
         <ActivityFormProvider>
           <HotelFormProvider>
             <FlightFormProvider>

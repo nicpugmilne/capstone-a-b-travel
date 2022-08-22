@@ -9,11 +9,12 @@ import {
   InputRightElement,
   ButtonGroup,
   IconButton,
-  FormErrorMessage,
+  Divider,
 } from "@chakra-ui/react";
 import { MdCheck } from "react-icons/md";
 import { MdModeEditOutline } from "react-icons/md";
 import { MdOutlineDeleteForever } from "react-icons/md";
+import { MdOutlineCancel } from "react-icons/md";
 import ItineraryModuleContainer from "./ItineraryModuleContainer";
 import { useState, useEffect } from "react";
 import ItinerarySummary from "./ItinerarySummary";
@@ -112,7 +113,11 @@ function ItineraryCard({
   }
 
   function handleStartDateUpdate(updatedStartDate) {
-    if (updatedStartDate < itinerary.itinerary_start_date) {
+    console.log(updatedStartDate);
+    console.log(itinerary.itinerary_start_date);
+    if (
+      Date.parse(updatedStartDate) < Date.parse(itinerary.itinerary_start_date)
+    ) {
       return updatedStartDate;
     } else {
       return itinerary.itinerary_start_date;
@@ -120,7 +125,9 @@ function ItineraryCard({
   }
 
   function handleEndDateUpdate(updatedEndDate) {
-    if (updatedEndDate > itinerary.itinerary_end_date) {
+    console.log(updatedEndDate);
+    console.log(itinerary.itinerary_end_date);
+    if (Date.parse(updatedEndDate) > Date.parse(itinerary.itinerary_end_date)) {
       return updatedEndDate;
     } else {
       return itinerary.itinerary_end_date;
@@ -135,13 +142,15 @@ function ItineraryCard({
         "100%", // 0-30em
         "50%", // 30em-48em
         "50%", // 48em-62em
-        "30%", // 62em+
+        "32%", // 62em+
       ]}
-      bg="gray.50"
+      bg="blackAlpha.50"
       direction={"column"}
-      justifyContent="space-between"
+      justifyContent={"space-between"}
+      boxShadow={"lg"}
+      rounded={"2xl"}
     >
-      <Flex direction={"column"} flex="0">
+      <Flex direction={"column"} flex="0" alignContent={"center"}>
         {isEditing ? (
           <InputGroup>
             <Input
@@ -149,9 +158,11 @@ function ItineraryCard({
               placeholder="Set new trip name"
               value={itineraryName}
               onChange={handleNameInputChange}
+              m={3}
             />
             {!isError ? (
               <InputRightElement
+                m={3}
                 children={
                   <Icon
                     as={MdCheck}
@@ -161,11 +172,20 @@ function ItineraryCard({
                 }
               />
             ) : (
-              <FormErrorMessage>Itinerary name is required.</FormErrorMessage>
+              <InputRightElement
+                m={3}
+                children={
+                  <Icon
+                    as={MdOutlineCancel}
+                    color="red.500"
+                    onClick={() => setIsEditing(false)}
+                  />
+                }
+              />
             )}
           </InputGroup>
         ) : (
-          <Flex>
+          <Flex m={3}>
             <Text fontSize={"xl"} fontWeight={500} p={2} px={3}>
               {itinerary.name}
             </Text>
@@ -199,9 +219,10 @@ function ItineraryCard({
         direction={"column"}
         justifySelf={"flex-bottom"}
         alignItems="center"
+        mb={5}
       >
         <ItinerarySummary itinerary={itinerary}></ItinerarySummary>
-
+        <Divider mb={5} />
         <MakePublicToggle itinerary={itinerary} />
       </Flex>
     </Flex>

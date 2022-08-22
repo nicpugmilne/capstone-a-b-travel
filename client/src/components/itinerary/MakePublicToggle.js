@@ -1,4 +1,4 @@
-import { Switch, FormControl, FormLabel, Spacer } from "@chakra-ui/react";
+import { Switch, FormControl, FormLabel, Spacer, Flex } from "@chakra-ui/react";
 import { useState } from "react";
 
 export default function MakePublicToggle({ itinerary }) {
@@ -19,21 +19,23 @@ export default function MakePublicToggle({ itinerary }) {
   }
 
   return (
-    <FormControl display="flex" alignItems="center">
-      <FormLabel htmlFor="make-public" mb="0">
-        Make trip public?
-      </FormLabel>
-      <Spacer />
-      {isPublished ? (
-        <Switch
-          id="make-public"
-          size="md"
-          onChange={handleToggle}
-          defaultChecked
-        />
-      ) : (
-        <Switch id="make-public" size="md" onChange={handleToggle} />
-      )}
-    </FormControl>
+    <Flex>
+      <FormControl display="flex" alignItems="center">
+        <FormLabel htmlFor="make-public" mb="0">
+          Make trip public?
+        </FormLabel>
+        <Spacer />
+        {isPublished ? (
+          <Switch
+            id="make-public"
+            size="md"
+            onChange={handleToggle}
+            defaultChecked
+          />
+        ) : (
+          <Switch id="make-public" size="sm" onChange={handleToggle} />
+        )}
+      </FormControl>
+    </Flex>
   );
 }
