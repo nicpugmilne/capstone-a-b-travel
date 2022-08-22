@@ -10,7 +10,6 @@ export default function PublicTripCard({ trip }) {
     clonedTrip.user_id = user.id;
     clonedTrip.name = trip.trip.name;
     clonedTrip.image_url = trip.trip.image_url;
-    console.log(clonedTrip);
 
     fetch("/trips", {
       method: "POST",
@@ -32,7 +31,6 @@ export default function PublicTripCard({ trip }) {
     clonedItinerary.name = trip.name;
     clonedItinerary.is_favorite = false;
     clonedItinerary.is_published = false;
-    console.log(clonedItinerary);
     fetch("/itineraries", {
       method: "POST",
       headers: {
@@ -55,7 +53,6 @@ export default function PublicTripCard({ trip }) {
       clonedModule.end_datetime = module.end_date;
       clonedModule.duration = module.duration;
       clonedModule.cost = module.cost;
-      // console.log(clonedModule);
 
       fetch("/itinerary_modules", {
         method: "POST",

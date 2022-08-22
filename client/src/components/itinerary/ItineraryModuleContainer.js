@@ -18,6 +18,7 @@ function ItineraryModuleContainer({
   itineraryId,
   handleAddModule,
   handleRemoveModuleItem,
+  handleEditModuleItem,
 }) {
   const [isModalOpen, setModalOpen] = useState(false);
   const moduleItems = modules.map((module) => {
@@ -26,6 +27,8 @@ function ItineraryModuleContainer({
         key={module.id}
         module={module}
         handleRemoveModuleItem={handleRemoveModuleItem}
+        itineraryId={itineraryId}
+        handleEditModuleItem={handleEditModuleItem}
       ></ItineraryModuleItem>
     );
   });
