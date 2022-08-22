@@ -8,6 +8,7 @@ import {
   Th,
   TableContainer,
   Flex,
+  Divider,
 } from "@chakra-ui/react";
 import ItineraryModuleItem from "./ItineraryModuleItem";
 import { useState } from "react";
@@ -38,7 +39,7 @@ function ItineraryModuleContainer({
   }
 
   return (
-    <Flex direction={"column"}>
+    <Flex direction={"column"} mx={3} alignItems="center">
       {isModalOpen ? (
         <CreateModuleModal
           setModalOpen={setModalOpen}
@@ -46,6 +47,7 @@ function ItineraryModuleContainer({
           handleAddModule={handleAddModule}
         />
       ) : null}
+
       <TableContainer>
         <Table size="sm" variant="unstyled" my="3">
           <Thead>
@@ -62,7 +64,7 @@ function ItineraryModuleContainer({
       </TableContainer>
       <Button
         my={8}
-        w={"full"}
+        w={"50%"}
         bg={"green.300"}
         color={"white"}
         rounded={"xl"}
@@ -77,6 +79,7 @@ function ItineraryModuleContainer({
       >
         Add to trip
       </Button>
+      <Divider />
     </Flex>
   );
 }

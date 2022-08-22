@@ -21,7 +21,7 @@ function DashboardContainer() {
     return <PublicTripCard key={trip.id} trip={trip}></PublicTripCard>;
   });
   return (
-    <Wrap spacing="25px" justify="center">
+    <Wrap spacing="25px" justify="center" p={10}>
       {tripCards}
     </Wrap>
   );
