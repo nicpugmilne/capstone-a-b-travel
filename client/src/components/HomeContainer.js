@@ -1,6 +1,5 @@
 import { Box } from "@chakra-ui/react";
 import { useState } from "react";
-import Header from "./Header";
 import LoginCard from "./LoginCard";
 import SignupCard from "./SignUpCard";
 
@@ -8,7 +7,6 @@ function HomeContainer() {
   const [hasAccount, setHasAccount] = useState(true);
   return (
     <>
-      {/* <Header /> */}
       <Box>
         {hasAccount ? (
           <LoginCard

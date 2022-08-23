@@ -1,7 +1,23 @@
 import { Flex, Box, Heading, Image } from "@chakra-ui/react";
 import NavBar from "./NavBar";
+import { useHistory } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../context/UserContext";
 
-function Header({ user, setUser }) {
+function Header() {
+  const history = useHistory();
+  const { setUser } = useContext(UserContext);
+
+  function handleLogout() {
+    fetch("/logout", {
+      method: "DELETE",
+    }).then((res) => {
+      setUser({});
+      history.push("/");
+      history.go();
+    });
+  }
+
   return (
     <Flex
       minWidth="max-content"
@@ -21,7 +37,7 @@ function Header({ user, setUser }) {
           />
         </Heading>
       </Box>
-      <NavBar user={user} setUser={setUser} />
+      <NavBar handleLogout={handleLogout} />
     </Flex>
   );
 }

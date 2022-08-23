@@ -6,23 +6,11 @@ import {
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
-// import { UserContext } from "../context/UserContext";
-import { useHistory } from "react-router-dom";
-import { TripsContext } from "../context/TripsContext";
+import { UserContext } from "../context/UserContext";
 
-function NavBar({ user, setUser }) {
-  // const { user, setUser } = useContext(UserContext);
-  const history = useHistory();
-
-  function handleLogout() {
-    fetch("/logout", {
-      method: "DELETE",
-    }).then((res) => {
-      setUser({});
-      history.push("/");
-    });
-  }
-
+function NavBar({ handleLogout }) {
+  const { user } = useContext(UserContext);
+  console.log(user);
   return (
     <>
       {user ? (
