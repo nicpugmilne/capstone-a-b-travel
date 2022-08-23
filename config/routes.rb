@@ -5,11 +5,13 @@ Rails.application.routes.draw do
   resources :trips
   resources :users
 
-  get "/trips/:trip_id/itineraries",
-  to: "trips#itineraries_index"
+  get "/trips/:trip_id/itineraries", to: "trips#itineraries_index"
 
   get "/users/:user_id/trips", to: "trips#user_trips_index"
   get "/public/itineraries", to: "itineraries#public_itineraries_index"
+
+  #unsplash images
+  get "/images", to: "images#get_city_image"
 
   # auth routes
   post "/signup", to: "users#create"
@@ -17,8 +19,7 @@ Rails.application.routes.draw do
   get "/me", to: "users#show"
   delete "/logout", to: "sessions#destroy"
 
-
-  get '*path',
-      to: 'fallback#index',
+  get "*path",
+      to: "fallback#index",
       constraints: ->(req) { !req.xhr? && req.format.html? }
 end
