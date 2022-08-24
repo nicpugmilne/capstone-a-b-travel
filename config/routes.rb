@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   get "/public/itineraries", to: "itineraries#public_itineraries_index"
 
   #unsplash images
-  get "/images", to: "images#get_city_image"
+  get "/images/:city", to: "images#get_city_image"
 
   # auth routes
   post "/signup", to: "users#create"

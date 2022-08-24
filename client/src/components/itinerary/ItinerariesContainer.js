@@ -13,6 +13,7 @@ function ItinerariesContainer() {
   const [itineraries, setItineraries] = useState([]);
   const [itineraryCount, setItineraryCount] = useState(null);
   const [tripName, setTripName] = useState("");
+  const [tripImage, setTripImage] = useState("");
 
   useEffect(() => {
     fetch(`/trips/${trip_id}/itineraries`, {
@@ -25,6 +26,7 @@ function ItinerariesContainer() {
   function establishTripData(data) {
     setItineraries(data);
     setTripName(data[0].trip.name);
+    setTripImage(data[0].trip.image_url);
     setItineraryCount(data.length);
   }
 
@@ -90,6 +92,7 @@ function ItinerariesContainer() {
         setItineraryCount={setItineraryCount}
         handleCreateItinerary={handleCreateItinerary}
         updateTripName={updateTripName}
+        imageUrl={tripImage}
       ></ItineraryContainerHeader>
       <Wrap spacing="18px" justify="center" p={5}>
         <ActivityFormProvider>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Button,
   Icon,
@@ -13,24 +13,44 @@ import {
   FormControl,
   FormLabel,
   Input,
+  Flex,
+  Image,
 } from "@chakra-ui/react";
 import { MdModeEditOutline } from "react-icons/md";
 import { useState } from "react";
 
-export default function EditTripPopover({ handleTripUpdate }) {
+export default function EditTripPopover({
+  handleTripUpdate,
+  tripName,
+  imageUrl,
+}) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = React.useRef();
-  const [imageInput, setImageInput] = useState("");
-  const [nameInput, setNameInput] = useState("");
+  const [nameInput, setNameInput] = useState();
+  const [imageInput, setImageInput] = useState();
 
-  const handleImageInputChange = (e) => setImageInput(e.target.value);
+  useEffect(() => {
+    setNameInput(tripName);
+    setImageInput(imageUrl);
+  });
+
   const handleNameInputChange = (e) => setNameInput(e.target.value);
-
-  const isError = imageInput === "" || nameInput === "";
 
   function handleUpdate() {
     onClose();
     handleTripUpdate(nameInput, imageInput);
+  }
+
+  function handleUpdateImage() {
+    const location = nameInput.replace(/ /g, "");
+    fetch(`/images/${location}`, {
+      method: "GET",
+      credentials: "include",
+    })
+      .then((res) => res.json())
+      .then((image) => {
+        setImageInput(image.urls.small);
+      });
   }
 
   return (
@@ -48,38 +68,25 @@ export default function EditTripPopover({ handleTripUpdate }) {
         <AlertDialogOverlay>
           <AlertDialogContent>
             <AlertDialogHeader fontSize="xl">Edit Trip</AlertDialogHeader>
-
             <AlertDialogBody>
-              <FormControl isInvalid={isError}>
-                <FormLabel>Trip name</FormLabel>
+              <FormControl>
+                <FormLabel>Trip location</FormLabel>
                 <Input value={nameInput} onChange={handleNameInputChange} />
-                <FormLabel mt={3}>Trip image</FormLabel>
-                <Input
-                  type="url"
-                  value={imageInput}
-                  onChange={handleImageInputChange}
-                />
+                <Flex direction="column" alignItems={"center"}>
+                  <Image src={imageInput} m={3}></Image>
+                  <Button onClick={handleUpdateImage} w="30%">
+                    Get new image
+                  </Button>
+                </Flex>
               </FormControl>
             </AlertDialogBody>
-
             <AlertDialogFooter>
               <Button ref={cancelRef} onClick={onClose}>
                 Cancel
               </Button>
-              {isError ? (
-                <Button
-                  isDisabled
-                  ref={cancelRef}
-                  onClick={handleUpdate}
-                  ml={3}
-                >
-                  Save
-                </Button>
-              ) : (
-                <Button ref={cancelRef} onClick={handleUpdate} ml={3}>
-                  Save
-                </Button>
-              )}
+              <Button ref={cancelRef} onClick={handleUpdate} ml={3}>
+                Save
+              </Button>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialogOverlay>

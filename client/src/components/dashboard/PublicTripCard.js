@@ -64,6 +64,7 @@ export default function PublicTripCard({ trip }) {
       })
         .then((r) => r.json())
         .then((newModule) => {
+          //Redirect to the appropriate trip page
           console.log(newModule);
         });
     });

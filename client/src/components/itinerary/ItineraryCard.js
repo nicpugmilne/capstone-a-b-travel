@@ -136,6 +136,8 @@ function ItineraryCard({
 
   const isError = itineraryName === "";
 
+  console.log(modules);
+
   return (
     <Flex
       width={[
@@ -221,9 +223,13 @@ function ItineraryCard({
         alignItems="center"
         mb={5}
       >
-        <ItinerarySummary itinerary={itinerary}></ItinerarySummary>
-        <Divider mb={5} />
-        <MakePublicToggle itinerary={itinerary} />
+        {modules.length > 0 ? (
+          <>
+            <ItinerarySummary itinerary={itinerary}></ItinerarySummary>
+            <Divider mb={5} />
+            <MakePublicToggle itinerary={itinerary} />
+          </>
+        ) : null}
       </Flex>
     </Flex>
   );
