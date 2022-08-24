@@ -12,25 +12,18 @@ import {
   FormLabel,
   Input,
   Button,
+  Image,
 } from "@chakra-ui/react";
 import { UserContext } from "../../context/UserContext";
 
 function CreateTripModal({ setModalOpen, handleAddTrip }) {
   const { user } = useContext(UserContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isComplete, setIsComplete] = useState(true);
   const [nameValue, setNameValue] = useState("");
-  const [imageValue, setImageValue] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
 
-  const handleChange = (event) => {
-    switch (event.target.name) {
-      case "nameInput":
-        setNameValue(event.target.value);
-        break;
-      case "imageInput":
-        setImageValue(event.target.value);
-        break;
-    }
-  };
+  const handleChange = (event) => setNameValue(event.target.value);
 
   useEffect(() => {
     onOpen();
@@ -46,7 +39,7 @@ function CreateTripModal({ setModalOpen, handleAddTrip }) {
     const newTrip = {
       user_id: user.id,
       name: nameValue,
-      image_url: imageValue,
+      image_url: imageUrl,
     };
     fetch("/trips", {
       method: "POST",
@@ -60,7 +53,7 @@ function CreateTripModal({ setModalOpen, handleAddTrip }) {
       .then((newTrip) => {
         handleAddTrip(newTrip);
         setNameValue("");
-        setImageValue("");
+        setImageUrl("");
         createFirstItinerary(newTrip.id);
       });
   };
@@ -80,6 +73,18 @@ function CreateTripModal({ setModalOpen, handleAddTrip }) {
       body: JSON.stringify(newItinerary),
     });
   }
+
+  function handleFetchImage() {
+    const location = nameValue.replace(/ /g, "");
+    fetch(`/images/${location}`, {
+      method: "GET",
+      credentials: "include",
+    })
+      .then((res) => res.json())
+      .then((image) => {
+        setImageUrl(image.urls.small);
+      });
+  }
   return (
     <Modal isOpen={isOpen} onClose={handleClose}>
       <ModalOverlay w="full" />
@@ -98,7 +103,18 @@ function CreateTripModal({ setModalOpen, handleAddTrip }) {
                 placeholder="Bahamas 2022"
                 size="sm"
               />
-              <FormLabel my="8px" fontSize="sm">
+              {nameValue ? (
+                !imageUrl ? (
+                  <Button onClick={handleFetchImage}>Get image</Button>
+                ) : (
+                  <>
+                    <Image src={imageUrl}></Image>
+                    <Button onClick={handleFetchImage}>Get new image</Button>
+                  </>
+                )
+              ) : null}
+
+              {/* <FormLabel my="8px" fontSize="sm">
                 Image
               </FormLabel>
               <Input
@@ -107,15 +123,21 @@ function CreateTripModal({ setModalOpen, handleAddTrip }) {
                 onChange={handleChange}
                 placeholder="Please provide an image for this trip"
                 size="sm"
-              />
+              /> */}
             </FormControl>
           </form>
         </ModalBody>
         <ModalCloseButton />
         <ModalFooter>
-          <Button colorScheme="blue" mr={3} onClick={handleCreateTrip}>
+          {isComplete ? (
+            <Button colorScheme="blue" mr={3} onClick={handleCreateTrip}>
+              Save
+            </Button>
+          ) : null}
+
+          {/* <Button colorScheme="blue" mr={3} onClick={handleCreateTrip}>
             Save
-          </Button>
+          </Button> */}
         </ModalFooter>
       </ModalContent>
     </Modal>
