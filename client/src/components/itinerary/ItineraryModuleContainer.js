@@ -48,7 +48,11 @@ function ItineraryModuleContainer({
         />
       ) : null}
 
-      <TableContainer>
+      <TableContainer
+        _hover={{
+          cursor: "pointer",
+        }}
+      >
         <Table size="sm" variant="unstyled" my="3">
           <Thead>
             <Tr>
@@ -63,23 +67,22 @@ function ItineraryModuleContainer({
         </Table>
       </TableContainer>
       <Button
-        my={8}
+        mt={6}
+        mb={8}
         w={"50%"}
-        bg={"green.300"}
-        color={"white"}
+        bg={"cyan.200"}
         rounded={"xl"}
         boxShadow={"0 5px 20px 0px rgb(72 187 120 / 43%)"}
         _hover={{
-          bg: "green.400",
+          bg: "cyan.300",
         }}
         _focus={{
-          bg: "green.400",
+          bg: "cyan.300",
         }}
         onClick={handleClickAddModule}
       >
         Add to trip
       </Button>
-      <Divider />
     </Flex>
   );
 }

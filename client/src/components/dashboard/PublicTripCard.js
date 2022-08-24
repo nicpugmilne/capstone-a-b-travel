@@ -1,10 +1,12 @@
 import { Image, Text, Button, Flex, useColorModeValue } from "@chakra-ui/react";
 import { useContext } from "react";
+import { useHistory } from "react-router-dom";
 import PublicTripModuleTable from "./PublicTripModuleTable";
 import { UserContext } from "../../context/UserContext";
 
 export default function PublicTripCard({ trip }) {
   const { user } = useContext(UserContext);
+  const history = useHistory();
   function cloneTrip() {
     let clonedTrip = {};
     clonedTrip.user_id = user.id;
@@ -22,6 +24,7 @@ export default function PublicTripCard({ trip }) {
       .then((r) => r.json())
       .then((newTrip) => {
         cloneItinerary(newTrip.id);
+        history.push(`/trips`);
       });
   }
 
@@ -40,10 +43,10 @@ export default function PublicTripCard({ trip }) {
       body: JSON.stringify(clonedItinerary),
     })
       .then((r) => r.json())
-      .then((clonedItinerary) => cloneModules(clonedItinerary.id));
+      .then((clonedItinerary) => cloneModules(clonedItinerary.id, newTripId));
   }
 
-  function cloneModules(newItineraryId) {
+  function cloneModules(newItineraryId, newTripId) {
     trip.itinerary_modules.forEach((module) => {
       let clonedModule = {};
       clonedModule.module_type_id = module.module_type.id;
@@ -61,12 +64,7 @@ export default function PublicTripCard({ trip }) {
         },
         credentials: "include",
         body: JSON.stringify(clonedModule),
-      })
-        .then((r) => r.json())
-        .then((newModule) => {
-          //Redirect to the appropriate trip page
-          console.log(newModule);
-        });
+      }).then((r) => r.json());
     });
   }
 

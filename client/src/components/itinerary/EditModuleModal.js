@@ -3,12 +3,9 @@ import {
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalFooter,
-  ModalBody,
   ModalCloseButton,
   useDisclosure,
   Button,
-  Text,
 } from "@chakra-ui/react";
 import EditActivityForm from "./EditActivityForm";
 import EditFlightForm from "./EditFlightForm";
@@ -67,7 +64,19 @@ export default function EditModuleModal({
 
   return (
     <>
-      <Button size="xs" onClick={onOpen}>
+      <Button
+        size="xs"
+        onClick={onOpen}
+        // variant="outline"
+        bg={"teal.400"}
+        color="white"
+        _hover={{
+          bg: "teal.500",
+        }}
+        _focus={{
+          bg: "teal.500",
+        }}
+      >
         Edit
       </Button>
 

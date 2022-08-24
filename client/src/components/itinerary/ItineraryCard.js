@@ -10,6 +10,7 @@ import {
   ButtonGroup,
   IconButton,
   Divider,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { MdCheck } from "react-icons/md";
 import { MdModeEditOutline } from "react-icons/md";
@@ -136,8 +137,6 @@ function ItineraryCard({
 
   const isError = itineraryName === "";
 
-  console.log(modules);
-
   return (
     <Flex
       width={[
@@ -151,6 +150,7 @@ function ItineraryCard({
       justifyContent={"space-between"}
       boxShadow={"lg"}
       rounded={"2xl"}
+      bg={useColorModeValue("gray.50", "gray.800")}
     >
       <Flex direction={"column"} flex="0" alignContent={"center"}>
         {isEditing ? (
@@ -197,12 +197,24 @@ function ItineraryCard({
                 <IconButton
                   icon={<MdModeEditOutline />}
                   onClick={() => setIsEditing(!isEditing)}
+                  _hover={{
+                    bg: "green.100",
+                  }}
+                  _focus={{
+                    bg: "green.100",
+                  }}
                 ></IconButton>
               </Tooltip>
               <Tooltip label="Delete itinerary" placement="bottom">
                 <IconButton
                   icon={<MdOutlineDeleteForever />}
                   onClick={handleDelete}
+                  _hover={{
+                    bg: "red.100",
+                  }}
+                  _focus={{
+                    bg: "red.100",
+                  }}
                 ></IconButton>
               </Tooltip>
             </ButtonGroup>
@@ -225,6 +237,7 @@ function ItineraryCard({
       >
         {modules.length > 0 ? (
           <>
+            <Divider />
             <ItinerarySummary itinerary={itinerary}></ItinerarySummary>
             <Divider mb={5} />
             <MakePublicToggle itinerary={itinerary} />

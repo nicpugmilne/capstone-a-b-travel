@@ -31,7 +31,7 @@ export default function DeleteTripPopover({ tripId }) {
 
   return (
     <>
-      <Tooltip hasArrow label="Delete Trip">
+      <Tooltip label="Delete Trip">
         <Button onClick={onOpen} colorScheme="red" variant="ghost" size="md">
           <Icon as={MdOutlineDeleteForever}></Icon>
         </Button>

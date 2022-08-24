@@ -4,6 +4,7 @@ import { MdHotel } from "react-icons/md";
 import { MdDirectionsCar } from "react-icons/md";
 import { MdLocalActivity } from "react-icons/md";
 import EditModuleModal from "./EditModuleModal";
+import ViewNotesModal from "./ViewNotesModal";
 
 function ItineraryModuleItem({
   module,
@@ -38,7 +39,7 @@ function ItineraryModuleItem({
     <>
       <Tr>
         <Td>
-          <Icon as={icon} />
+          <Icon as={icon} color={"teal.700"} />
         </Td>
         <Td>
           {module.start_date} - {module.end_date}
@@ -47,6 +48,9 @@ function ItineraryModuleItem({
         <Td>{module.duration}</Td>
         <Td>${module.cost}</Td>
         <Td>
+          <ViewNotesModal notes={module.notes} name={module.name} />
+        </Td>
+        <Td>
           <EditModuleModal
             module={module}
             itineraryId={itineraryId}
@@ -54,7 +58,19 @@ function ItineraryModuleItem({
           />
         </Td>
         <Td onClick={handleDelete}>
-          <Button size="xs">Delete</Button>
+          <Button
+            size="xs"
+            bg="red.600"
+            color="white"
+            _hover={{
+              bg: "red.700",
+            }}
+            _focus={{
+              bg: "red.700",
+            }}
+          >
+            Delete
+          </Button>
         </Td>
       </Tr>
     </>

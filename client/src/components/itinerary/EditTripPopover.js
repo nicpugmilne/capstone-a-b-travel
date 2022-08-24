@@ -32,7 +32,7 @@ export default function EditTripPopover({
   useEffect(() => {
     setNameInput(tripName);
     setImageInput(imageUrl);
-  });
+  }, [imageUrl]);
 
   const handleNameInputChange = (e) => setNameInput(e.target.value);
 
@@ -55,7 +55,7 @@ export default function EditTripPopover({
 
   return (
     <>
-      <Tooltip hasArrow label="Edit trip">
+      <Tooltip label="Edit trip">
         <Button onClick={onOpen} variant="ghost" size="md">
           <Icon as={MdModeEditOutline}></Icon>
         </Button>
