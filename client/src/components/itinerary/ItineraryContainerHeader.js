@@ -5,18 +5,8 @@ import {
   Button,
   Flex,
   ButtonGroup,
-  IconButton,
   HStack,
-  Input,
-  Icon,
-  InputGroup,
-  InputRightElement,
-  Tooltip,
-  useDisclosure,
 } from "@chakra-ui/react";
-import { useState } from "react";
-import { MdCheck } from "react-icons/md";
-import { MdModeEditOutline } from "react-icons/md";
 import { useHistory } from "react-router-dom";
 import DeleteTripPopover from "./DeleteTripPopover";
 import EditTripPopover from "./EditTripPopover";
@@ -26,6 +16,7 @@ function ItineraryContainerHeader({
   handleCreateItinerary,
   tripId,
   updateTripName,
+  imageUrl,
 }) {
   const history = useHistory();
 
@@ -57,6 +48,8 @@ function ItineraryContainerHeader({
             <EditTripPopover
               tripId={tripId}
               handleTripUpdate={handleTripUpdate}
+              tripName={tripName}
+              imageUrl={imageUrl}
             />
             <DeleteTripPopover tripId={tripId} />
           </ButtonGroup>

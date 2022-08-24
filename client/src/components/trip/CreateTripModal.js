@@ -13,13 +13,13 @@ import {
   Input,
   Button,
   Image,
+  Flex,
 } from "@chakra-ui/react";
 import { UserContext } from "../../context/UserContext";
 
 function CreateTripModal({ setModalOpen, handleAddTrip }) {
   const { user } = useContext(UserContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [isComplete, setIsComplete] = useState(true);
   const [nameValue, setNameValue] = useState("");
   const [imageUrl, setImageUrl] = useState("");
 
@@ -94,50 +94,39 @@ function CreateTripModal({ setModalOpen, handleAddTrip }) {
           <form>
             <FormControl>
               <FormLabel mb="8px" fontSize="sm">
-                Trip name:
+                Trip location:
               </FormLabel>
               <Input
                 value={nameValue}
                 name="nameInput"
                 onChange={handleChange}
-                placeholder="Bahamas 2022"
+                placeholder="Saint Lucia"
                 size="sm"
               />
               {nameValue ? (
                 !imageUrl ? (
-                  <Button onClick={handleFetchImage}>Get image</Button>
+                  <Button onClick={handleFetchImage} mt={3}>
+                    Get image
+                  </Button>
                 ) : (
-                  <>
-                    <Image src={imageUrl}></Image>
-                    <Button onClick={handleFetchImage}>Get new image</Button>
-                  </>
+                  <Flex direction="column" alignItems={"center"}>
+                    <Image src={imageUrl} m={3}></Image>
+                    <Button onClick={handleFetchImage} w="30%">
+                      Get new image
+                    </Button>
+                  </Flex>
                 )
               ) : null}
-
-              {/* <FormLabel my="8px" fontSize="sm">
-                Image
-              </FormLabel>
-              <Input
-                value={imageValue}
-                name="imageInput"
-                onChange={handleChange}
-                placeholder="Please provide an image for this trip"
-                size="sm"
-              /> */}
             </FormControl>
           </form>
         </ModalBody>
         <ModalCloseButton />
         <ModalFooter>
-          {isComplete ? (
+          {imageUrl ? (
             <Button colorScheme="blue" mr={3} onClick={handleCreateTrip}>
               Save
             </Button>
           ) : null}
-
-          {/* <Button colorScheme="blue" mr={3} onClick={handleCreateTrip}>
-            Save
-          </Button> */}
         </ModalFooter>
       </ModalContent>
     </Modal>
