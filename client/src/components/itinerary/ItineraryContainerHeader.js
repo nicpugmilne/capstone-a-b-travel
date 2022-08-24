@@ -37,9 +37,7 @@ function ItineraryContainerHeader({
   return (
     <Flex minWidth="max-content" p="4" justifyContent="space-between">
       <Box>
-        <Button onClick={() => history.push(`/trips`)}>
-          Back to All Trips
-        </Button>
+        <Button onClick={() => history.push(`/trips`)}>Back to My Trips</Button>
       </Box>
       <Box>
         <HStack>

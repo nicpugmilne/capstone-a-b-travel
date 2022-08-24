@@ -27,6 +27,9 @@ function TripCard({ trip }) {
           boxShadow={"lg"}
           rounded={"lg"}
           pos={"relative"}
+          _hover={{
+            cursor: "pointer",
+          }}
         >
           <Box rounded={"lg"} mt={-12} pos={"relative"} height={"230px"}>
             <Image
