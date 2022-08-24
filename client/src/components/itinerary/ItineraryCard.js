@@ -114,8 +114,6 @@ function ItineraryCard({
   }
 
   function handleStartDateUpdate(updatedStartDate) {
-    console.log(updatedStartDate);
-    console.log(itinerary.itinerary_start_date);
     if (
       Date.parse(updatedStartDate) < Date.parse(itinerary.itinerary_start_date)
     ) {
@@ -126,8 +124,6 @@ function ItineraryCard({
   }
 
   function handleEndDateUpdate(updatedEndDate) {
-    console.log(updatedEndDate);
-    console.log(itinerary.itinerary_end_date);
     if (Date.parse(updatedEndDate) > Date.parse(itinerary.itinerary_end_date)) {
       return updatedEndDate;
     } else {
